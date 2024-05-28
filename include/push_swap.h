@@ -198,5 +198,8 @@ void    print_temp(t_stacks *stacks, t_entry *s, int size_stack);
 # define MSG_NONUM RED "error" GREEN " - KRONK ! You forgot the numbers...\n> " RESET\
         "\e[7m""seq 25 99 | shuf -n 25 | tr '\\n' ' ' | sed -r 's/.$//'" RESET "\n"
 
+# define UNDER_B "\033[48;5;4m" RESET
+# define UNDER_R "\033[48;5;1m" RESET
+
 #endif
 

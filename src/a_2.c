@@ -1,30 +1,6 @@
 #include "push_swap.h"
 
-void assign_target(t_stacks *stacks)
-{
-    t_entry *ptr_i;
-    t_entry *ptr_k;
-    int     target;
 
-
-    ptr_i = stacks->top_a;
-    while (ptr_i)
-    {
-        target = (ptr_i->num_index + 1) % stacks->full_size;
-        ptr_k = stacks->top_a;
-        while (ptr_k)
-        {
-            if (ptr_k->num_index == target)
-            {
-                ptr_i->target = ptr_k;
-                ptr_k->hunter = ptr_i;
-                break ;
-            }
-            ptr_k = ptr_k->below;
-        }
-        ptr_i = ptr_i->below;
-    }
-}
 
 // #    TAKES A VALUE posi? and return dist from origin
 static void modulo_s(t_entry *current)
