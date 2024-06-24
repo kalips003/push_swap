@@ -51,16 +51,16 @@ int  help_modulo(t_stacks *s, t_entry *previous, t_entry *next)
 static void helper_block_size(t_stacks *stacks, t_algo *a)
 {
     a->blk_num = a->num;
-    while (++a->sizeb_n < a->blk_num->size_s && help_modulo(stacks, *((t_entry **)(a->blk_num) + (a->blk_num->pile == 'B')), a->blk_num))
-        a->blk_num = *((t_entry **)(a->blk_num) + (a->blk_num->pile == 'B'));
+    while (++a->sizeb_n < a->blk_num->size_s && help_modulo(stacks, *((t_entry **)(a->blk_num) + (a->blk_num->pile_c == 'B')), a->blk_num))
+        a->blk_num = *((t_entry **)(a->blk_num) + (a->blk_num->pile_c == 'B'));
     a->blk_tar = a->target;
-    while (++a->sizeb_t < a->blk_tar->size_s && help_modulo(stacks, a->blk_tar, *((t_entry **)(a->blk_tar) + (a->blk_tar->pile == 'A'))) == 1)
-        a->blk_tar = *((t_entry **)(a->blk_tar) + (a->blk_tar->pile == 'A'));
-    if (help_modulo(stacks, *((t_entry **)(a->blk_tar) + (a->blk_tar->pile == 'B')), a->blk_tar) == -1)
+    while (++a->sizeb_t < a->blk_tar->size_s && help_modulo(stacks, a->blk_tar, *((t_entry **)(a->blk_tar) + (a->blk_tar->pile_c == 'A'))) == 1)
+        a->blk_tar = *((t_entry **)(a->blk_tar) + (a->blk_tar->pile_c == 'A'));
+    if (help_modulo(stacks, *((t_entry **)(a->blk_tar) + (a->blk_tar->pile_c == 'B')), a->blk_tar) == -1)
     {
         a->sizeb_t = 0;
-        while (++a->sizeb_t < a->blk_tar->size_s && help_modulo(stacks, *((t_entry **)(a->blk_tar) + (a->blk_tar->pile == 'B')), a->blk_tar) == -1)
-            a->blk_tar = *((t_entry **)(a->blk_tar) + (a->blk_tar->pile == 'B'));
+        while (++a->sizeb_t < a->blk_tar->size_s && help_modulo(stacks, *((t_entry **)(a->blk_tar) + (a->blk_tar->pile_c == 'B')), a->blk_tar) == -1)
+            a->blk_tar = *((t_entry **)(a->blk_tar) + (a->blk_tar->pile_c == 'B'));
         a->sizeb_t *= -1;
     }
 }
@@ -80,14 +80,14 @@ void    fill_stru_algo(t_stacks *stacks, t_algo *a, t_entry *num)
         a->num_dist_target = -1;
         t_entry *temp = num;
         while (++(a->num_dist_target) < num->size_s && temp != a->target)
-            temp = *((t_entry **)(temp) + (temp->pile == 'A'));
+            temp = *((t_entry **)(temp) + (temp->pile_c == 'A'));
         a->num_d_tar_plus = a->num_dist_target;
         if (a->num_dist_target > num->size_s / 2)
             a->num_dist_target -= num->size_s;
         a->bt_dist_bn = -1;
         temp = a->blk_tar;
         while (++(a->bt_dist_bn) < num->size_s && temp != a->blk_num)
-            temp = *((t_entry **)(temp) + (temp->pile == 'A'));
+            temp = *((t_entry **)(temp) + (temp->pile_c == 'A'));
     }
 }
 

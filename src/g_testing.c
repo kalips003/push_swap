@@ -34,9 +34,9 @@ void test_output(t_stacks *stacks)
     int grade;
 
     put(CLEAR"\n\t""\033[38;5;58m""FINAL TEST:"RED"\n\n( A ) -> ");
-    print_stack(stacks, stacks->top_a, stacks->size_a, 0);
+    print_stack(stacks, stacks->top_a, 0);
     put(BLUE "\n(index)> ");
-    print_stack(stacks, stacks->top_a, stacks->size_a, 1);
+    print_stack(stacks, stacks->top_a, 1);
     grade = final_test(stacks);
     if (!grade)
         exit_all(stacks, RED"\n\n>\t\t KO\n"RESET, -1, NULL);
@@ -93,7 +93,7 @@ void    function2(t_stacks *stacks, int i)
 //         if (i == stacks->size_a)
 //             (temp = stacks->top_b, put("\n"));
 //         fill_stru_algo(stacks, &algo, temp);
-//         put("%c)%d) size_blk= %d, size_tar= %d\n", temp->pile, temp->num_index, algo.sizeb_n, algo.sizeb_t);
+//         put("%c)%d) size_blk= %d, size_tar= %d\n", temp->pile_c, temp->num_index, algo.sizeb_n, algo.sizeb_t);
 //         put("num_dist_target = %d\n", algo.num_dist_target);
 //         temp = temp->below;
 //     }
@@ -114,7 +114,7 @@ void    function3(t_stacks *stacks)
     {
         if (i == stacks->size_a)
             temp = stacks->top_b;
-        put("%c) -%d- = %s\n", temp->pile, temp->num_index, temp->algo);
+        put("%c) -%d- = %s\n", temp->pile_c, temp->num_index, temp->algo);
         temp = temp->below;
     }
 }

@@ -101,10 +101,10 @@ static char *lets_rr(char *s1, char *s2)
 //  bit 0b01 = one on -1
 static void lets_rrr(t_algo *a, t_entry *one, t_entry *two, int bit)
 {
-    a->str1 = lets_rr(str("%.*c", one->dist_p + ((bit & 2) >> 1), '5' + (one->pile == 'B')), str("%.*c", two->dist_p + (bit & 1), '5' + (two->pile == 'B')));
-    a->str2 = lets_rr(str("%.*c", one->dist_n - ((bit & 2) >> 1), '8' + (one->pile == 'B')), str("%.*c", two->dist_n - (bit & 1), '8' + (two->pile == 'B')));
-    a->str3 = fjoin(2, 0b11, str("%.*c", one->dist_p + ((bit & 2) >> 1), '5' + (one->pile == 'B')), str("%.*c", two->dist_n - (bit & 1), '8' + (two->pile == 'B')));
-    a->str4 = fjoin(2, 0b11, str("%.*c", one->dist_n - ((bit & 2) >> 1), '8' + (one->pile == 'B')), str("%.*c", two->dist_p + (bit & 1), '5' + (two->pile == 'B')));
+    a->str1 = lets_rr(str("%.*c", one->dist_p + ((bit & 2) >> 1), '5' + (one->pile_c == 'B')), str("%.*c", two->dist_p + (bit & 1), '5' + (two->pile_c == 'B')));
+    a->str2 = lets_rr(str("%.*c", one->dist_n - ((bit & 2) >> 1), '8' + (one->pile_c == 'B')), str("%.*c", two->dist_n - (bit & 1), '8' + (two->pile_c == 'B')));
+    a->str3 = fjoin(2, 0b11, str("%.*c", one->dist_p + ((bit & 2) >> 1), '5' + (one->pile_c == 'B')), str("%.*c", two->dist_n - (bit & 1), '8' + (two->pile_c == 'B')));
+    a->str4 = fjoin(2, 0b11, str("%.*c", one->dist_n - ((bit & 2) >> 1), '8' + (one->pile_c == 'B')), str("%.*c", two->dist_p + (bit & 1), '5' + (two->pile_c == 'B')));
     a->str1 = smallest_str(4, a->str1, a->str2, a->str3, a->str4);
 }
 
@@ -266,11 +266,11 @@ int assign_str(t_stacks *s, t_entry *num)
     t_algo a;
 
     fill_stru_algo(s, &a, num);
-    int bit = (a.num->pile == 'A') << 1 | (a.target->pile == 'A');
+    int bit = (a.num->pile_c == 'A') << 1 | (a.target->pile_c == 'A');
     // if  (num->dist == 1 && a.sizeb_n == -1) -> 'sa'
     if (a.num_dist_target == 1 || a.num_dist_target == -1)
         return (0);
-    if (help_modulo(s, num, *((t_entry **)(num) + (num->pile == 'A'))) == -1)
+    if (help_modulo(s, num, *((t_entry **)(num) + (num->pile_c == 'A'))) == -1)
         return (0);
     if (bit == 0)// num top stack, swap !! 7-10-8-11 > 10-7-8-11
         return(algo_bb(&a));

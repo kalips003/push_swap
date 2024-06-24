@@ -1,31 +1,9 @@
 #include "push_swap.h"
 
-int    reading_cmd(char *raw, t_stacks *stacks);
 char    reverse_c(char c);
 char    *reverse_str(char *cmd);
-void    tester(t_stacks *stacks);
 
-////////////////////////////////////////////////////////////
-//	#	takes raw input, look for 'pb\n', execute
-//	return -1 on bad command
-//  return 0 on EOF
-int    reading_cmd(char *raw, t_stacks *stacks)
-{
-    int i;
-    int cmd;
 
-    i = -1;
-    while (raw[++i] && (cmd = wii_wrapper(raw[i])) <= -2)
-    {
-        if (cmd < -3)
-        {
-            if ((cmd = wii_strikes_back(&raw[i], &i)) < 0)
-                return (-1);
-            function_cmd(stacks, cmd, 0);
-        }
-    }
-    return (0);
-}
 
 char    reverse_c(char c)
 {
@@ -59,38 +37,7 @@ char    *reverse_str(char *cmd)
 
 
 
-////////////////////////////////////////////////////////////
-//      TESTER
-////////////////////////////////////////////////////////////
-//	#	main tester, ask for raw, execute, loop out when [ctrl-D]
-void    tester(t_stacks *stacks)
-{
-    char    *raw;
-    char    sw;
-    int     error;
 
-    sw = 0;
-    while ((raw = gnl(0)))
-    {
-        if ((error = wii_wrapper(raw[0])) >= 0)
-            function_cmd_string(stacks, raw, 0);
-        else if (error <= -4)
-            error = reading_cmd(raw, stacks);
-        if (raw[0] == '*' && !(error = 0))
-            sw ^= 1;
-        print_header(stacks, 0b111, sw);
-        if (raw[0] == '.' && !(error = 0))
-            function3(stacks);
-        if (raw[0] == '+' && !(error = 0))
-            function2(stacks, atoi_v(&raw[0]));//         <<<
-        if (raw[0] == '-' && !(error = 0))
-            function1(stacks, atoi_v(&raw[1]));//         <<<
-        if (error == -1)
-            put("\033[38;5;94m""trying:" RESET" %s\n" MSG_BADCMD, raw);
-        put("\033[38;5;58;4m""\n>input"RESET"\n");
-        free(raw);
-    }
-}
 
 // if (wiii("+-.=", raw[0]) && !(error = 0))
 //     function_test[wiii("+-.=")](stacks, atoi_v(&raw[1]));

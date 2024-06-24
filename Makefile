@@ -1,11 +1,9 @@
-NAME = so_long
-NAME_BONUS = so_long_bonus
+NAME = push_swap
+NAME_BONUS = checker
 
 CC = cc
-FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER) -lm
-# FLAGS = -Wextra -Wall -g -fPIE
-# CFLAGS = -Wall -Werror -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
-# FLAGS = -g -fPIE
+# FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER) -lm
+FLAGS = -Wextra -Wall -g -fPIE -I$(HEADER_FOLDER) -lm
 
 all: $(NAME)
 
@@ -13,101 +11,43 @@ all: $(NAME)
 # │                  	 	        TESTING                    	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
-# big map, 3 pika
-MAPG = good_map.ber
-# big map, 3 pika
-MAP1 = map1.ber
-# big square, no pika
-MAP2 = map2.ber
-# medium square, lots of pika
-MAP3 = map3.ber
-# small square, 1 pika
-MAP4 = map4.ber
-# only balls
-MAP5 = map5.ber
+ARGS = "1 6 5 7 9 4 8 33"
+ARGS2 = 1 6 5 7 9 4 8 33
+ARGS3 = 1 2 3 5 4
 
+MIN = -999
+MAX = 999
+HOW_MANY = 100
+HOW_MUCH = 10
 
-a: libft mlx $(NAME_BONUS) inc/so_long_bonus.h
-	@$(call random_shmol_cat, "\'tis good map", 'hav fun ね? (make m for testeur mandatory)', $(CLS), );
-	@echo "\tuse -WASD- or →↓←↑ to move around"
-	@echo "\tuse -SPACE- to throw ball"
-	@echo "\tpress -CTRL-l- to toogle run"
-	@echo "\tpress -E- to print memory"
-	@echo "\n\t\033[5m~ Press Enter to start, and good luck... ~\033[0m"
-	@read -p "" key
-	./$(NAME_BONUS) map/$(MAPG)
+a: libft $(NAME) inc/push_swap.h
+	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
+	./$(word 2, $^) $(ARGS3)
 
-b: libft mlx $(NAME_BONUS)
-	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP2)
+b: libft $(NAME_BONUS) inc/push_swap.h
+	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
+	./$(word 2, $^) $(ARGS3)
 
-c: libft mlx $(NAME_BONUS)
-	@$(call random_shmol_cat, teshting ... $@ !, " $(NAME_BONUS): ", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP5)
+c: libft $(NAME) inc/push_swap.h
+	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) times $(HOW_MUCH) ね?, $(CLS), );
+	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
+	./$(NAME) $$ARGS | wc -l
 
-v: libft mlx $(NAME_BONUS)
+v: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
-	-$(VALGRIND) ./$(NAME_BONUS) map/$(MAP1)
-	@echo $(RESET);
+	-$(VALGRIND) ./$(word 2, $^) $(ARGS2)
 
-# ---------------------------------------------------------------------- >
-BAD_MAPS = map_bad_not_rect1.ber map_no_collec.ber map_no_player.ber \
-			map_no_exit.ber map_many_exit.ber \
-			map_many_player.ber map_bad_wall.ber \
-			map_bad_enclosed_e.ber map_bad_enclosed_c.ber \
-			map_bad_tile.ber
-
-# map=$$($(eval echo $$arg));
-m: libft mlx $(NAME)
-	@for map in $(BAD_MAPS); do \
-	$(call random_shmol_cat, teshting lots of bad miaps:, $$map shouldt run..., $(CLS), ); \
-	$(VALGRIND) ./$(NAME) map/map_bad/$$map; \
-	echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
-	read -p "" key; \
-	done
-#
-	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, map_multiplayer.be, $(CLS), );
-	-$(VALGRIND) ./$(NAME) map/map_multiplayer.be
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key;
-	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with bad map name!, mapzzzzz.ber, $(CLS), );
-	-$(VALGRIND) ./$(NAME) map/mapzzzzz.ber
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key
-#
-	@$(call random_shmol_cat, teshing too much args, "$(MAP1) abc", $(CLS), );
-	-$(VALGRIND) ./$(NAME) map/$(MAP1) map/$(MAP2)
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key
-#
-	@$(call shmol_cat_color, $(COLOR_5R_0G_5B), $(COLOR_5R_2G_3B), teshing with empty file, map_blank.ber, $(CLS), );
-	@echo "$(RED)"
-	touch ./map/map_blank.ber
-	@echo "$(COLOR_5R_0G_5B)"
-	-$(VALGRIND) ./$(NAME) map/map_blank.ber
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key
-#
-	@$(call shmol_cat_color, $(COLOR_5R_4G_0B), $(COLOR_5R_2G_3B), teshing with a sprite file renamed!!!, , $(CLS), );
-	@echo "$(RED)"
-	mv ./img/player/player_0.xpm ./img/player/player_007.xpm
-	@echo "$(COLOR_5R_4G_0B)"
-	-$(VALGRIND) ./$(NAME) map/$(MAP3)
-	@echo "$(RED)"
-	mv ./img/player/player_007.xpm ./img/player/player_0.xpm
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key
-#
-	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key
-	-$(VALGRIND) ./$(NAME) map/$(MAP3)
-
-m2: libft mlx $(NAME)
-	@$(call random_shmol_cat, "\'tis good map Mandatory", "try n break it.. にゃ?", $(CLS), );
-	@echo "\t\033[5m~ Press Enter to continue...\033[0m"
-	@read -p "" key
-	-$(VALGRIND) ./$(NAME) map/$(MAP3)
+m: libft $(NAME) inc/push_swap.h
+	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) numbers、$(HOW_MUCH) times ね?, $(CLS), );
+	@total=0; \
+	for i in $$(seq 1 $(HOW_MUCH)); do \
+		ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
+		count=$$(./$(NAME) $$ARGS | wc -l); \
+		echo "test $$i: $$count moves"; \
+		total=$$((total + count)); \
+	done; \
+	average=$$((total / $(HOW_MUCH))); \
+	$(call random_shmol_cat, "heres average numbar:", $$average, , )
 
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	        SOURCES                    	         │
@@ -162,14 +102,14 @@ src/obj/%.o: src/%.c
 # │                  	 	       BONUS	                   	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
-SRC_B = $(wildcard src_bonus/*.c)
-OBJ_B = $(patsubst src_bonus/%.c, src_bonus/obj/%.o, $(SRC_B))
+SRC_B = $(wildcard src/*.c)
+OBJ_B = $(patsubst src/%.c, src/obj/%.o, $(SRC_B))
 
-OBJ_FOLDER_B = src_bonus/obj
+OBJ_FOLDER_B = src/obj
 
 $(NAME_BONUS): bonus
 
-bonus: libft $(OBJ_B) main_bonus.c inc/so_long.h
+bonus: libft $(OBJ_B) main_bonus.c inc/push_swap.h
 	@clear
 	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c lib/libft.a -o $(NAME_BONUS); then \
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
@@ -177,7 +117,7 @@ bonus: libft $(OBJ_B) main_bonus.c inc/so_long.h
 	fi
 	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(NAME_BONUS)), $(call pad_word, 12, "Compiled~"));
 
-src_bonus/obj/%.o: src_bonus/%.c inc/so_long_bonus.h
+src_bonus/obj/%.o: src_bonus/%.c inc/push_swap.h
 	@clear
 	@if [ ! -e $(OBJ_FOLDER_B) ]; then\
 		mkdir -p $(OBJ_FOLDER_B);\

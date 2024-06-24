@@ -49,8 +49,8 @@ void	ini_stacks(int ac, char **av, t_stacks *stacks)
 //  #   CREATE THE FULL 'A' STACK WITH NUMBER, CHECK ERRORS, RETURN POINTER TO TOP OF A
 static t_entry	*create_stack_a(int ac, char **av, t_stacks *stacks, int j)
 {
-	int i;
-	t_entry *a_end;
+	int		i;
+	t_entry	*a_end;
 
 	a_end = NULL;
 	i = 0;
@@ -74,8 +74,8 @@ static t_entry	*create_stack_a(int ac, char **av, t_stacks *stacks, int j)
 //  exit_code -4: not a number
 static t_entry	*create_new_node(t_entry *last_node, char *arg, t_stacks *s)
 {
-	t_entry *new_node;
-	int error;
+	t_entry	*new_node;
+	int		error;
 
 	new_node = (t_entry *)mem(0, sizeof(t_entry));
 	if (!new_node)
@@ -99,8 +99,8 @@ static t_entry	*create_new_node(t_entry *last_node, char *arg, t_stacks *s)
 //  exit_code -3: duplicates number
 static void	assign_value(t_stacks *stacks)
 {
-	t_entry *ptr_i;
-	t_entry *ptr_k;
+	t_entry	*ptr_i;
+	t_entry	*ptr_k;
 
 	ptr_i = stacks->top_a;
 	while (ptr_i)
@@ -123,9 +123,9 @@ static void	assign_value(t_stacks *stacks)
 ///////////////////////////////////////////////////////////////////////////////]
 static void	assign_target(t_stacks *stacks)
 {
-	t_entry *ptr_i;
-	t_entry *ptr_k;
-	int target;
+	t_entry	*ptr_i;
+	t_entry	*ptr_k;
+	int		target;
 
 	ptr_i = stacks->top_a;
 	while (ptr_i)
