@@ -1,5 +1,10 @@
 #include "push_swap.h"
 
+int    reading_cmd(char *raw, t_stacks *stacks);
+char    reverse_c(char c);
+char    *reverse_str(char *cmd);
+void    tester(t_stacks *stacks);
+
 ////////////////////////////////////////////////////////////
 //	#	takes raw input, look for 'pb\n', execute
 //	return -1 on bad command

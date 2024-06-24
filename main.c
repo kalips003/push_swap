@@ -30,7 +30,7 @@ static char *sublim(t_stacks *stacks)
         return (str("%.*c", abs(zero->dist), '5' + 3 * (zero->dist < 0)));
     return (NULL);
 }
-////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////]
 int main(int ac, char **av)
 {
     t_stacks    stacks;
@@ -52,7 +52,7 @@ int main(int ac, char **av)
     char *last = sublim(&stacks);
     i += len(last);
     function_cmd_string(&stacks, last, 1);
-    free(last);
+    free_s(last);
     print_one_line(&stacks, 1, 1);
     put("\talgo cost = %d\n", i);
 ////    FOOTER      ////

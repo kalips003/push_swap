@@ -12,13 +12,15 @@
 
 #include "ft_printf.h"
 
-//////////////////////////////////////////////////////
-//  #   join the read bits
-//  bit 10 = begin malloc'd
-//  bit  1 = append malloc'd
-// 	if size = 0, join full size
-// 		always return at least a '\0' that can be free
-// 		return NULL on error
+///////////////////////////////////////////////////////////////////////////////]
+/*******************************************************************************
+ #   join the read bits
+ 	if bit 10 = begin is malloc'd
+ 	if bit 01 = append is malloc'd
+	if size = 0, join full size
+		always return at least a '\0' that can be free
+		return NULL on error
+*******************************************************************************/
 char	*join(char *begin, char *append, int bit, int size)
 {
 	int		i;
@@ -27,9 +29,9 @@ char	*join(char *begin, char *append, int bit, int size)
 
 	if (begin && !append && ((bit >> 1) & 1))
 		return (begin);
-	i = ft_strlen(append);
+	i = ft_strlen666(append);
 	size = i * (i <= size || !size) + size * (i > size && size);
-	str = (char *)malloc(ft_strlen(begin) + size + 1);
+	str = (char *)malloc(ft_strlen666(begin) + size + 1);
 	if (str)
 	{
 		ptr = 0;
@@ -68,9 +70,8 @@ t_str	g_tab[] = {NULL,
 	NULL};
 
 ////////////////////////////////////////////////////////////
-static char *le(char *s, char *app, int *inc)
+static char	*le(char *s, char *app, int *inc)
 {
-	
 	int		i;
 
 	i = 0;
@@ -105,8 +106,13 @@ char	*f_2(char *str, int *i, va_list args)
 	return (rtrn);
 }
 
-////////////////////////////////////////////////////////////
-//	#
+///////////////////////////////////////////////////////////////////////////////]
+/*******************************************************************************
+	(char *)printf
+		return NULL on error
+*******************************************************************************/
+//	#	(char *)printf
+
 char	*str(char *str, ...)
 {
 	va_list	args;
@@ -124,10 +130,6 @@ char	*str(char *str, ...)
 			rtrn = join(rtrn, f_2(str, &i, args), 0b11, 0);
 		else
 			rtrn = le(rtrn, &str[i], &i);
-		// {
-		// 	rtrn = join(rtrn, &str[i], 0b10, 1);
-		// 	i++;
-		// }
 		if (!rtrn)
 			return (NULL);
 	}

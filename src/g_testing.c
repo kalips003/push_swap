@@ -1,5 +1,11 @@
 #include "push_swap.h"
 
+int final_test(t_stacks *s);
+void test_output(t_stacks *stacks);
+void    function1(t_stacks *stacks, int i);
+void    function2(t_stacks *stacks, int i);
+void    function3(t_stacks *stacks);
+
 ////////////////////////////////////////////////////////////
 // final check, 0 = KO, 1 = OK
 int final_test(t_stacks *s)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:38:31 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/13 18:29:17 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:08:43 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 # include "colors.h"
 
 ////////////////////////////////////////////////////////////
@@ -40,7 +41,7 @@ typedef struct s_flag
 	int			tmp_a;
 	long long	num_b;
 	char		*rtrn;
-	int 		fd;
+	int			fd;
 }				t_flags;
 //	#
 typedef int		(*t_func)(va_list, t_flags *);
@@ -49,7 +50,8 @@ typedef char	*(*t_str)(va_list, t_flags *);
 //	#	PRINTF
 int		put(const char *str, ...);
 // int		f_1(const char *str, int *i, va_list args);
-int	print_fd(int fd, const char *str, ...);
+int		print_fd(int fd, const char *str, ...);
+void	ft_print_cat(int num, char *string2, int cls);
 ////////////////////////////////////////////////////////////
 //	#	STRUCT
 // static 1
@@ -59,7 +61,7 @@ void	f_error_check(t_flags *flags);
 void	f_fill_struct(const char *str, t_flags *f, va_list args);
 ////////////////////////////////////////////////////////////
 //	#	TOOLS
-int		ft_strlen(char *s);
+int		ft_strlen666(char *s);
 int		atoi_print(const char *str, int *preci_width, t_flags *f, va_list args);
 int		size_num_base(long long num, int base);
 int		size_float(double nbr, t_flags *flags);
@@ -83,6 +85,7 @@ int		size_format_num_un(unsigned long num, t_flags *f, int num_size);
 int		size_num_base_un(unsigned long num, int base);
 int		f_format_num_un(t_flags *f, unsigned long num, int size_num);
 int		ft_putnbr_base_un(int fd, unsigned long nbr, char *base);
+void	*free_333(void *ptr);
 ////////////////////////////////////////////////////////////
 //	#	PRINT FLAG
 int		ft_string(va_list args, t_flags *flags);

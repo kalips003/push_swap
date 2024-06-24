@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 void	*expand(void *ptr, int size, int add)
 {
@@ -19,7 +19,7 @@ void	*expand(void *ptr, int size, int add)
 
 	rtrn = malloc(size + add);
 	if (!rtrn)
-		return (NULL);
+		return (put(ERRM), NULL);
 	i = -1;
 	while (++i < size && ptr)
 		((char *)rtrn)[i] = ((char *)ptr)[i];
@@ -35,6 +35,8 @@ char	**expand_tab(char **tab, char *new_line)
 	char	**new_tab;
 	int		i;
 
+	if (!new_line)
+		return (tab);
 	new_tab = (char **)malloc(sizeof(char *) * (tab_size(tab) + 2));
 	if (!new_tab)
 		return (printf("error malloc 1\n"), free_tab(tab), NULL);
@@ -51,16 +53,17 @@ char	**expand_tab(char **tab, char *new_line)
 	return (new_tab);
 }
 
-void	free_tab(char **tab)
+void	*free_tab(char **tab)
 {
 	int	i;
 
 	if (!tab)
-		return ;
+		return (NULL);
 	i = -1;
 	while (tab[++i])
-		free(tab[i]);
-	free(tab);
+		free_s(tab[i]);
+	free_s(tab);
+	return (NULL);
 }
 
 void	*free_s(void *ptr)

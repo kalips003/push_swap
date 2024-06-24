@@ -1,5 +1,11 @@
 #include "push_swap.h"
 
+t_entry *find_target(t_stacks *stacks, t_entry *num);
+int  help_modulo(t_stacks *s, t_entry *previous, t_entry *next);
+static void helper_block_size(t_stacks *stacks, t_algo *a);
+void    fill_stru_algo(t_stacks *stacks, t_algo *a, t_entry *num);
+t_entry *assign_str_all(t_stacks *stacks);
+
 ////////////////////////////////////////////////////////////
 // find target
 t_entry *find_target(t_stacks *stacks, t_entry *num)

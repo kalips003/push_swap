@@ -3,24 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/03/28 16:59:09 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/24 12:43:39 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include <stddef.h>
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h>		// open
 
-# include "colors.h"
 # include "libft.h"
 
 //							//   CONTAINER FOR 1 NUMBER
@@ -86,8 +79,22 @@ typedef struct s_algo
 
 
 typedef int (*f_cmd)(t_stacks *stacks, char sw);
-////////////////////////////////////////////////////////////
-//	#	TOOLs - A - STRUCT                                //
+///////////////////////////////////////////////////////////////////////////////]
+//	#	TOOLs - A - CREATE STRUCT
+void	ini_stacks(int ac, char **av, t_stacks *stacks);
+//	#	TOOLs - C - COMMANDS  
+int		pb(t_stacks *s, char sw);
+int		pa(t_stacks *s, char sw);
+int		ra(t_stacks *s, char sw);
+int		rb(t_stacks *s, char sw);
+int		rr(t_stacks *s, char sw);
+int		rra(t_stacks *s, char sw);
+int		rrb(t_stacks *s, char sw);
+int		rrr(t_stacks *s, char sw);
+int		sa(t_stacks *s, char sw);
+int		sb(t_stacks *s, char sw);
+int		ss(t_stacks *s, char sw);
+
 void    free_stack(t_entry *first);
 void    assign_value(t_stacks *stacks);
 t_entry *create_new_node(t_entry *last_node, char *arg, t_stacks *stacks);

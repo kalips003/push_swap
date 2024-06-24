@@ -1,6 +1,9 @@
 #include "push_swap.h"
 
-
+static void modulo_s(t_entry *current);
+static void helper_give_posi(t_stacks *s, t_entry *current, char a, int i);
+void    give_position(t_stacks *s);
+void    reevalue(t_stacks *s, t_entry *num);
 
 // #    TAKES A VALUE posi? and return dist from origin
 static void modulo_s(t_entry *current)

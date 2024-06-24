@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:06:22 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/13 19:14:14 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:00:06 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 ////////////////////////////////////////////////////////////
 //	#	[scpiduxX%bofeESt]
@@ -52,8 +53,7 @@ static int	f_1(const char *str, int *i, va_list args, int fd)
 		*i += write(fd, "%", 1);
 		return (1);
 	}
-	if (g_function_pointer[wii_print(f.flag)])
-		rtrn = g_function_pointer[wii_print(f.flag)](args, &f);
+	rtrn = g_function_pointer[wii_print(f.flag)](args, &f);
 	*i += f.increment;
 	return (rtrn);
 }
@@ -116,4 +116,29 @@ int	print_fd(int fd, const char *str, ...)
 	}
 	va_end(args);
 	return (sum);
+}
+
+/*******************************************************************************
+ * 		PRINT CAT RANDOM COLOR
+*******************************************************************************/
+void	ft_print_cat(int num, char *string2, int cls)
+{
+	int	color1;
+	int	color2;
+	int	color3;
+
+	color1 = (int)(rand() % (255 + 1));
+	color2 = (int)(rand() % (255 + 1));
+	color3 = (int)(rand() % (255 + 1));
+	if (cls)
+		put(CLS);
+	put("\033[38;5;%dm\
+	\tにゃ~\033[38;5;%dm\t⠀╱|、\n\
+	\t\t(˚ˎ。7⠀⠀⠀\033[38;5;%dm~ %d ~\033[38;5;%dm\n\
+	\t\t⠀|、˜\\\t\t\t\033[38;5;%dm~ %s\033[38;5;%dm\n\
+	\t\t⠀じしˍ)ノ\n", \
+	color2, color1, color2, num, color1, color2, string2, color1);
+	put(BLINK "\033[38;5;%dm\n\t\t>>>  PRISS ENTER TO CONTINUE  <<<\n"RESET, \
+		color3);
+	free_333(gnl(0));
 }

@@ -1,5 +1,15 @@
 #include "push_swap.h"
 
+static char *smallest_str(int nb, ...);
+static void lets_r(char *c1, char *c2);
+static char *lets_rr(char *s1, char *s2);
+static void lets_rrr(t_algo *a, t_entry *one, t_entry *two, int bit);
+int algo_aa(t_algo *a);
+int algo_bb(t_algo *a);
+int algo_ab(t_algo *a);
+int algo_ba(t_algo *a);
+int assign_str(t_stacks *s, t_entry *num);
+
 static char *smallest_str(int nb, ...)
 {
     va_list	args;

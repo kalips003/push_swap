@@ -1,5 +1,11 @@
 #include "push_swap.h"
 
+int wii_wrapper(char c);
+int wii_strikes_back(char *cmd, int *index);
+int ft_strchr(char *cmd_set, char *cmd);
+int	ft_atoi2(char *str, int *error);
+char	*ft_strjoin(char *begin, char *append, int bit, t_stacks *s);
+
 //////////////////////////////////////////////////////
 //  #   takes in "0123456789a " -> return index
 //  #   [0-9x] -> [0-10]

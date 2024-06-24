@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_unsigned.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:50:30 by agallon           #+#    #+#             */
-/*   Updated: 2023/12/09 15:50:33 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:01:21 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,16 @@ int	ft_putnbr_base_un(int fd, unsigned long nbr, char *base)
 	int			rtrn;
 
 	rtrn = 0;
-	size = ft_strlen(base);
+	size = ft_strlen666(base);
 	if (nbr >= (unsigned long)size)
 		rtrn += ft_putnbr_base(fd, nbr / size, base);
 	write(fd, &base[nbr % size], 1);
 	return (rtrn + 1);
+}
+
+void	*free_333(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+	return (NULL);
 }

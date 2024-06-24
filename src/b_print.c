@@ -1,5 +1,9 @@
 #include "push_swap.h"
 
+void    print_one_line(t_stacks *stacks, int sw, int bit);
+void    print_stack(t_stacks *stacks, t_entry *s, int size_stack, char sw);
+void    print_stack_b(t_stacks *stacks, t_entry *s, int size_stack, char sw);
+
 //////////////////////////////////////////////////////
 //  #   PRINNTING
 //      switch 0 = real number

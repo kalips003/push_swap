@@ -1,4 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   3_free.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/24 12:22:35 by kalipso           #+#    #+#             */
+/*   Updated: 2024/06/24 12:22:35 by kalipso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+
+void	free_algos(t_stacks *stacks);
+void	free_stack(t_entry *first);
+int		exit_all(t_stacks *s, char *message, int exit_code, void *ptr);
 
 ////////////////////////////////////////////////////////////
 //	#	EXIT FUNCTION
@@ -36,10 +52,10 @@ void    free_stack(t_entry *first)
     while (current->below && current->below != first)
     {
         next = current->below;
-        free(current);
+        free_s(current);
         current = next;
     }
-    free(current);
+    free_s(current);
 }
 
 ////////////////////////////////////////////////////////////

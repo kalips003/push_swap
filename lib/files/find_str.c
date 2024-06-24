@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_str.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:34:49 by agallon           #+#    #+#             */
-/*   Updated: 2024/05/13 18:03:09 by agallon          ###   ########.fr       */
+/*   Updated: 2024/06/23 17:16:45 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 //////////////////////////////////////////////////////
 //  #   FIND SUBSTRING, RETURN POSI, -1 IF NOT FOUND

@@ -1,4 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   4_print.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/24 12:23:01 by kalipso           #+#    #+#             */
+/*   Updated: 2024/06/24 12:23:01 by kalipso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+
+void	print(t_stacks *stacks, int sw, int bit);
+void	print_stack_c(t_stacks *stacks, t_entry *s, char sw);
+void	print_header(t_stacks *stacks, int bit, int sw);
+void	print_stru_algo(t_algo *a);
 
 void    print(t_stacks *stacks, int sw, int bit)
 {
@@ -13,7 +30,7 @@ void    print(t_stacks *stacks, int sw, int bit)
 
 
 //  #   print one stack
-void    print_stack_c(t_stacks *stacks, t_entry *s, char sw)
+void	print_stack_c(t_stacks *stacks, t_entry *s, char sw)
 {
     int     i;
 

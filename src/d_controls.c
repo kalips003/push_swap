@@ -1,5 +1,8 @@
 #include "push_swap.h"
 
+int    function_cmd_string(t_stacks *stacks, char *instructions, char sw2);
+void    function_cmd(t_stacks *stacks, int i, char sw2);
+
 ////////////////////////////////////////////////////////////
 //	#	takes in "0123456789a11", and do it, instructions can be NULL
 //  sw2 = print > no_print (instructions beeing executed)
