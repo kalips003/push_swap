@@ -80,7 +80,7 @@ void	print_stack(t_stacks *stacks, t_entry *s, char sw)
 			s = s->below;
 		else
 			s = s->above;
-		// s = *(t_entry **)((char *)s->above + offsetof(t_entry, below) * (s->pile_c == 'A'));
+		// s = *(t_entry **)((t_entry **)s->above + (s->pile_c == 'A'));
 	}
 	put(RESET);
 }

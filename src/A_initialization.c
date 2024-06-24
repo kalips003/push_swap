@@ -23,23 +23,18 @@ static void		assign_target(t_stacks *stacks);
 void	ini_stacks(int ac, char **av, t_stacks *stacks)
 {
 	ft_memset(stacks, 0, sizeof(t_stacks));
+	ini_cmd(stacks);
 	stacks->full_size = ac - 1;
 	stacks->size_a = stacks->full_size;
-	stacks->top_b = NULL;
-	stacks->top_a = NULL;
-	stacks->args = NULL;
 	// ini instru struct
 	if (ac == 2)
 	{
 		stacks->args = split(av[1], " ");
 		if (!stacks->args)
-		{
 			exit_all(stacks, MSG_MALLOC, -3, NULL);
-		}
 		stacks->full_size = tab_size(stacks->args);
 		stacks->size_a = stacks->full_size;
-		stacks->top_a = create_stack_a(stacks->full_size + 1, stacks->args,
-				stacks, 1);
+		stacks->top_a = create_stack_a(stacks->full_size + 1, stacks->args, stacks, 1);
 		return ;
 	}
 	stacks->top_a = create_stack_a(stacks->full_size + 1, av, stacks, 0);
@@ -144,4 +139,10 @@ static void	assign_target(t_stacks *stacks)
 		}
 		ptr_i = ptr_i->below;
 	}
+}
+
+///////////////////////////////////////////////////////////////////////////////]
+static void	assign_blk(t_stacks *stacks)
+{
+
 }

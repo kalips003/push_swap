@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/24 19:47:14 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 01:30:11 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include "libft.h"
 
+typedef int (*f_cmd)(t_stacks *stacks, char sw);
 //							//   CONTAINER FOR 1 NUMBER
 typedef struct s_entry
 {
@@ -54,6 +55,7 @@ typedef struct s_stacks
     struct s_entry *top_b;
     struct s_entry *zero;
 
+	f_cmd	controls[11];
     char    **args;
     int     full_size;
     int     size_a;
@@ -82,7 +84,7 @@ typedef struct s_algo
 }	t_algo;
 
 
-typedef int (*f_cmd)(t_stacks *stacks, char sw);
+
 ///////////////////////////////////////////////////////////////////////////////]
 //	A - CREATE STRUCT
 void	ini_stacks(int ac, char **av, t_stacks *stacks);
@@ -153,7 +155,7 @@ void    function2(t_stacks *stacks, int i);
 void    function3(t_stacks *stacks);
 
 t_entry *find_target(t_stacks *stacks, t_entry *num);
-int  help_modulo(t_stacks *s, t_entry *previous, t_entry *next);
+int  is_in_order(t_stacks *s, t_entry *previous, t_entry *next);
 void    fill_stru_algo(t_stacks *stacks, t_algo *a, t_entry *num);
 t_entry *assign_str_all(t_stacks *stacks);
 
@@ -165,8 +167,37 @@ int assign_str(t_stacks *s, t_entry *num);
 
 
 
+///////////////////////////////////////////////////////////////////////////////]
+char	reverse_c(char c);
+char	reverse_c(char c)
+{
+	if (c >= '1')
+		c ^= 1;
+	else if (c >= '4')
+		return (c);
+	else if (c >= '7')
+		c += 3;
+	else if (c >= ':')
+		c -= 3;
+	return (c);
+}
 
+char	*reverse_str(char *cmd);
+char	*reverse_str(char *cmd)
+{
+	int		size;
+	char	*reverse;
 
+	size = len(cmd);
+	reverse = str("%s", cmd);
+	if (!reverse)
+		return (NULL);
+	int i = -1;
+	while (cmd[++i])
+		reverse[size - i - 1] = reverse_c(cmd[i]);
+	return (reverse);
+}
+///////////////////////////////////////////////////////////////////////////////]
 
 
 

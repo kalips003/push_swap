@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:09:40 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/24 19:51:57 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 01:30:09 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	reading_cmd(char *raw, t_stacks *stacks)
 		{
 			if ((cmd = wii_strikes_back(&raw[i], &i)) < 0)
 				return (-1);
-			function_cmd(stacks, cmd, 0);
+			stacks->controls[cmd](stacks, 0);
 		}
 	}
 	return (0);
