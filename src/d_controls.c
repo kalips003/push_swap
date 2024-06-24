@@ -1,12 +1,12 @@
 #include "push_swap.h"
 
-int		function_cmd_string(t_stacks *stacks, char *instructions, char sw2);
+int		exec_string(t_stacks *stacks, char *instructions, char sw2);
 void	function_cmd(t_stacks *stacks, int i, char sw2);
 
 ///////////////////////////////////////////////////////////////////////////////]
 //	#	takes in "0123456789a11", and do it, instructions can be NULL
 //  if sw2: print instructions beeing executed
-int	function_cmd_string(t_stacks *stacks, char *instructions, char sw2)
+int	exec_string(t_stacks *stacks, char *instructions, char sw2)
 {
 	int i = -1;
 	int b;

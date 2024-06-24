@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/24 17:51:00 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:47:14 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	print_stru_algo(t_algo *a);
 void    give_position(t_stacks *s);
 void    reevalue(t_stacks *s, t_entry *num);
 ///////////////////////////////////////////////////////////////////////////////]
-int    function_cmd_string(t_stacks *stacks, char *instructions, char sw2);
+int    exec_string(t_stacks *stacks, char *instructions, char sw2);
 void    function_cmd(t_stacks *stacks, int i, char sw2);
 
 int    reading_cmd(char *raw, t_stacks *stacks);

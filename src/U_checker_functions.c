@@ -1,46 +1,21 @@
 #include "push_swap.h"
 
-int final_test(t_stacks *s);
-void test_output(t_stacks *stacks);
-void    function1(t_stacks *stacks, int i);
-void    function2(t_stacks *stacks, int i);
-void    function3(t_stacks *stacks);
-
-////////////////////////////////////////////////////////////
-// final check, 0 = KO, 1 = OK
-int final_test(t_stacks *s)
-{
-    t_entry *temp;
-    int     i;
-
-    if (s->size_b || s->size_a != s->full_size)
-        return(0);
-    if (s->top_a->num_index || s->top_a->above->num_index != s->full_size - 1)
-        return(0);
-    temp = s->top_a;
-    i = -1;
-    while (++i < s->full_size)
-    {
-        if (temp->num_index != i)
-            return (0);
-        temp = temp->below;
-    }
-    return (i);
-}
+void	test_output(t_stacks *stacks);
+void	function1(t_stacks *stacks, int i);
+void	function2(t_stacks *stacks, int i);
+void	function3(t_stacks *stacks);
 
 // final check wrapper
-void test_output(t_stacks *stacks)
+void	test_output(t_stacks *stacks)
 {
-    int grade;
+	int	grade;
 
-    put(CLEAR"\n\t""\033[38;5;58m""FINAL TEST:"RED"\n\n( A ) -> ");
-    print_stack(stacks, stacks->top_a, 0);
-    put(BLUE "\n(index)> ");
-    print_stack(stacks, stacks->top_a, 1);
-    grade = final_test(stacks);
-    if (!grade)
-        exit_all(stacks, RED"\n\n>\t\t KO\n"RESET, -1, NULL);
-    exit_all(stacks, GREEN"\n\n>\t\t BRAVO !\n"RESET, -1, NULL);
+	put(CLEAR"\n\t""\033[38;5;58m""FINAL TEST:"RED"\n\n( A ) -> ");
+	print_stack(stacks, stacks->top_a, 1);
+	grade = final_test(stacks);
+	if (!grade)
+		exit_all(stacks, RED"\n\n>\t\t KO\n"RESET, -1, NULL);
+	exit_all(stacks, GREEN"\n\n>\t\t BRAVO !\n"RESET, -1, NULL);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -55,7 +30,7 @@ void    function1(t_stacks *stacks, int i)
     if (!small)
         return ;
     if (!i)
-        function_cmd_string(stacks, small->algo, 0);
+        exec_string(stacks, small->algo, 0);
     else
         put("%s\n", small->algo);
     print_header(stacks, 0b111, 1);

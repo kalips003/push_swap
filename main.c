@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:51:31 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/24 16:33:20 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:47:14 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int main(int ac, char **av)
 	int i = 0;
 	while (small && small->algo)
 	{
-		i += function_cmd_string(&stacks, small->algo, 1);
+		i += exec_string(&stacks, small->algo, 1);
 		small = assign_str_all(&stacks);
 	}
 	char *last = sublim(&stacks);
 	i += len(last);
-	function_cmd_string(&stacks, last, 1);
+	exec_string(&stacks, last, 1);
 	free_s(last);
 	// print(&stacks, 1, 1);
 	// put("\talgo cost = %d\n", i);

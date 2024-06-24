@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:09:40 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/24 18:55:08 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:51:57 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	tester(t_stacks *stacks)
 			break ;
 		error = wii_wrapper(raw[0]);
 		if (error >= 0)
-			function_cmd_string(stacks, raw, 0);
+			exec_string(stacks, raw, 0);
 		else if (error <= -4)
 			error = reading_cmd(raw, stacks);
 		helper_73(stacks, raw, &error, &sw);
@@ -68,8 +68,11 @@ static int	reading_cmd(char *raw, t_stacks *stacks)
 	int	cmd;
 
 	i = -1;
-	while (raw[++i] && (cmd = wii_wrapper(raw[i])) <= -2)
+	while (raw[++i])
 	{
+		cmd = wii_wrapper(raw[i]);
+		if (cmd <= -2)
+			break ;
 		if (cmd < -3)
 		{
 			if ((cmd = wii_strikes_back(&raw[i], &i)) < 0)
