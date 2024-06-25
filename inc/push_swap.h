@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/25 03:08:08 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 15:25:32 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include "libft.h"
 
 ///////////////////////////////////////////////////////////////////////////////]
-typedef struct s_stacks t_stacks;
-typedef struct s_entry t_entry;
-typedef int (*f_cmd)(t_stacks *stacks, char sw);
+typedef struct s_stacks t_data;
+typedef struct s_entry t_num;
+typedef int (*f_cmd)(t_data *data, char sw);
 ///////////////////////////////////////////////////////////////////////////////]
 //		MOTHER STRUCT WITH BOTH A & B
 typedef struct s_stacks
@@ -33,7 +33,7 @@ typedef struct s_stacks
 	int				full_size;
 	int				size_a;
 	int				size_b;
-}	t_stacks;
+}	t_data;
 
 ///////////////////////////////////////////////////////////////////////////////]
 //		CONTAINER FOR 1 NUMBER
@@ -66,8 +66,9 @@ typedef struct s_entry
     char    *algo;
     int     algo_sz;
 
-}	t_entry;
-//							//   STRUCT FOR ALGORITHM
+}	t_num;
+///////////////////////////////////////////////////////////////////////////////]
+//		STRUCT FOR ALGORITHM
 typedef struct s_algo
 {
 	struct s_entry	*num;
@@ -93,61 +94,64 @@ typedef struct s_algo
 
 ///////////////////////////////////////////////////////////////////////////////]
 //	A - CREATE STRUCT
-void	ini_stacks(int ac, char **av, t_stacks *stacks);
+void	ini_stacks(int ac, char **av, t_data *data);
 //	A - INITIALIZATION 2
-void	ini_cmd(t_stacks *stacks);
+void	ini_cmd(t_data *data);
 //	B - COMMANDS
-int		pb(t_stacks *s, char sw);
-int		pa(t_stacks *s, char sw);
-int		ra(t_stacks *s, char sw);
-int		rb(t_stacks *s, char sw);
-int		rr(t_stacks *s, char sw);
-int		rra(t_stacks *s, char sw);
-int		rrb(t_stacks *s, char sw);
-int		rrr(t_stacks *s, char sw);
-int		sa(t_stacks *s, char sw);
-int		sb(t_stacks *s, char sw);
-int		ss(t_stacks *s, char sw);
+int		pb(t_data *s, char sw);
+int		pa(t_data *s, char sw);
+int		ra(t_data *s, char sw);
+int		rb(t_data *s, char sw);
+int		rr(t_data *s, char sw);
+int		rra(t_data *s, char sw);
+int		rrb(t_data *s, char sw);
+int		rrr(t_data *s, char sw);
+int		sa(t_data *s, char sw);
+int		sb(t_data *s, char sw);
+int		ss(t_data *s, char sw);
 ///////////////////////////////////////////////////////////////////////////////]
 //	F - TOOLS
 int		wii_wrapper(char c);
-int		exec_string(t_stacks *stacks, char *instructions, char sw2);
+int		exec_string(t_data *data, char *instructions, char sw2);
 ///////////////////////////////////////////////////////////////////////////////]
 //	P - GIVE POSITION
-void	give_position(t_stacks *s);
-void	reevalue(t_stacks *s, t_entry *num);
+void	give_position(t_data *s);
+void	reevalue(t_data *s, t_num *num);
 ///////////////////////////////////////////////////////////////////////////////]
 //	Q - ALGO 1
-t_entry	*assign_str_all(t_stacks *stacks);
-int		assign_str(t_stacks *s, t_entry *num);
-void	fill_stru_algo(t_stacks *stacks, t_algo *a, t_entry *num);
-char	*smallest_str(int nb, ...);
-int		is_in_order(t_stacks *s, t_entry *previous, t_entry *next);
-//	Q - ALGO 2
+int		algo_1(t_data *data, int sw);
+//	Q - ALGO
 int		algo_aa(t_algo *a);
 int		algo_bb(t_algo *a);
 int		algo_ab(t_algo *a);
 int		algo_ba(t_algo *a);
-//	Q - ALGO 3
-void	lets_rrr(t_algo *a, t_entry *one, t_entry *two, int bit);
+//	Q - ALGO
+void	lets_rrr(t_algo *a, t_num *one, t_num *two, int bit);
+//	Q - ALGO TOOLS
+t_num	*assign_str_all(t_data *data);
+int		assign_str(t_data *s, t_num *num);
+void	fill_stru_algo(t_data *data, t_algo *a, t_num *num);
+char	*smallest_str(int nb, ...);
+int		is_in_order(t_data *s, t_num *previous, t_num *next);
 ///////////////////////////////////////////////////////////////////////////////]
 //	T - TESTER
-void	tester(t_stacks *stacks);
+void	tester(t_data *data);
 //	U - TESTER FUNCTION
-void	function1(t_stacks *stacks, int i);
-void	function2(t_stacks *stacks, int i);
-void	function3(t_stacks *stacks);
+void	function1(t_data *data, int i, int sw);
+void	function2(t_data *data, int i, int sw);
+void	function3(t_data *data, int sw);
 ///////////////////////////////////////////////////////////////////////////////]
 //	Y - PRINT
-void	print(t_stacks *stacks, int sw, int bit);
-void	print_header(t_stacks *stacks, int bit, int sw);
+void	print(t_data *data, int sw, int bit);
+void	print_header(t_data *data, int bit, int sw);
 void	print_stru_algo(t_algo *a);
-void	print_stack(t_stacks *stacks, t_entry *s, char sw);
+void	print_stack(t_data *data, t_num *s, char sw);
 ///////////////////////////////////////////////////////////////////////////////]
 //	Z - EXIT
-int		end(t_stacks *s, char *message, int exit_code);
-void	free_algos(t_stacks *stacks);
-int		final_test(t_stacks *s);
+void	ft_break(int num, char *string2, int cls, void *ptr);
+int		end(t_data *s, char *message, int exit_code);
+void	free_algos(t_data *data);
+int		final_test(t_data *s);
 
 
 

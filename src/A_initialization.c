@@ -12,54 +12,56 @@
 
 #include "push_swap.h"
 
-void			ini_stacks(int ac, char **av, t_stacks *stacks);
-static t_entry	*create_stack_a(int ac, char **av, t_stacks *stacks, int j);
-static t_entry	*create_new_node(t_entry *last_node, char *arg, t_stacks *s);
-static void		assign_value(t_stacks *stacks);
-static void		assign_target(t_stacks *stacks);
+void			ini_stacks(int ac, char **av, t_data *data);
+static t_num	*create_stack_a(int ac, char **av, t_data *data, int j);
+static t_num	*create_new_node(t_num *last_node, char *arg, t_data *s);
+static void		assign_value(t_data *data);
+static void		assign_target(t_data *data);
 
 ///////////////////////////////////////////////////////////////////////////////]
-//  #  CREATE THE FULL STACKS STRUCT
-void	ini_stacks(int ac, char **av, t_stacks *stacks)
+//  #  CREATE THE FULL data STRUCT
+void	ini_stacks(int ac, char **av, t_data *data)
 {
-	ft_memset(stacks, 0, sizeof(t_stacks));
-	ini_cmd(stacks);
-	stacks->full_size = ac - 1;
-	stacks->size_a = stacks->full_size;
+	ft_memset(data, 0, sizeof(t_data));
+	ini_cmd(data);
+	data->full_size = ac - 1;
+	data->size_a = data->full_size;
 	// ini instru struct
 	if (ac == 2)
 	{
-		stacks->args = split(av[1], " ");
-		if (!stacks->args)
-			end(stacks, MSG_MALLOC, 1);
-		stacks->full_size = tab_size(stacks->args);
-		stacks->size_a = stacks->full_size;
-		stacks->top_a = create_stack_a(stacks->full_size + 1, stacks->args, stacks, 1);
+		data->args = split(av[1], " ");
+		if (!data->args)
+			end(data, MSG_MALLOC, 1);
+		data->full_size = tab_size(data->args);
+		data->size_a = data->full_size;
+		data->top_a = create_stack_a(data->full_size + 1, data->args, data, 1);
 		return ;
 	}
-	stacks->top_a = create_stack_a(stacks->full_size + 1, av, stacks, 0);
+	data->top_a = create_stack_a(data->full_size + 1, av, data, 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
 //  #   CREATE THE FULL 'A' STACK WITH NUMBER, CHECK ERRORS, RETURN POINTER TO TOP OF A
-static t_entry	*create_stack_a(int ac, char **av, t_stacks *stacks, int j)
+static t_num	*create_stack_a(int ac, char **av, t_data *data, int j)
 {
 	int		i;
-	t_entry	*a_end;
+	t_num	*a_end;
 
 	a_end = NULL;
 	i = 0;
 	while (++i < ac)
 	{
-		a_end = create_new_node(a_end, av[i - j], stacks);
+		a_end = create_new_node(a_end, av[i - j], data);
+		ft_break(10000 * i + a_end->num, "in create_stack_a loop", 2, a_end);
 		if (i == 1)
-			stacks->top_a = a_end;
+			data->top_a = a_end;
 	}
-	assign_value(stacks);
-	assign_target(stacks);
-	stacks->top_a->above = a_end;
-	a_end->below = stacks->top_a;
-	return (stacks->top_a);
+	assign_value(data);
+	assign_target(data);
+	data->top_a->above = a_end;
+	a_end->below = data->top_a;
+	ft_break(data->top_a->num, "after finishing A: adrss of top of a", 2, data->top_a);
+	return (data->top_a);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
@@ -67,12 +69,12 @@ static t_entry	*create_stack_a(int ac, char **av, t_stacks *stacks, int j)
 //  PUT THE NUMBER IN, CHECK IF VALABLE    //(char *"arg")
 //  exit_code -5: number too big
 //  exit_code -4: not a number
-static t_entry	*create_new_node(t_entry *last_node, char *arg, t_stacks *s)
+static t_num	*create_new_node(t_num *last_node, char *arg, t_data *s)
 {
-	t_entry	*new_node;
+	t_num	*new_node;
 	int		error;
 
-	new_node = (t_entry *)mem(0, sizeof(t_entry));
+	new_node = (t_num *)mem(0, sizeof(t_num));
 	if (!new_node)
 		end(s, MSG_MALLOC, 1);
 	new_node->algo = NULL;
@@ -92,41 +94,41 @@ static t_entry	*create_new_node(t_entry *last_node, char *arg, t_stacks *s)
 //  #   TAKES STACK A PAS ENCORE REFERME, ASSIGN 012345.. VALUE
 //  #   CHECKS DUPLICATES
 //  exit_code -3: duplicates number
-static void	assign_value(t_stacks *stacks)
+static void	assign_value(t_data *data)
 {
-	t_entry	*ptr_i;
-	t_entry	*ptr_k;
+	t_num	*ptr_i;
+	t_num	*ptr_k;
 
-	ptr_i = stacks->top_a;
+	ptr_i = data->top_a;
 	while (ptr_i)
 	{
-		ptr_k = stacks->top_a;
+		ptr_k = data->top_a;
 		while (ptr_k)
 		{
 			if (ptr_i != ptr_k && ptr_i->num == ptr_k->num)
-				end(stacks, MSG_DUPLICATE, 0);
+				end(data, MSG_DUPLICATE, 0);
 			if (ptr_i->num > ptr_k->num)
 				ptr_i->num_index++;
 			ptr_k = ptr_k->below;
 		}
 		if (!ptr_i->num_index)
-			stacks->zero = ptr_i;
+			data->zero = ptr_i;
 		ptr_i = ptr_i->below;
 	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-static void	assign_target(t_stacks *stacks)
+static void	assign_target(t_data *data)
 {
-	t_entry	*ptr_i;
-	t_entry	*ptr_k;
+	t_num	*ptr_i;
+	t_num	*ptr_k;
 	int		target;
 
-	ptr_i = stacks->top_a;
+	ptr_i = data->top_a;
 	while (ptr_i)
 	{
-		target = (ptr_i->num_index + 1) % stacks->full_size;
-		ptr_k = stacks->top_a;
+		target = (ptr_i->num_index + 1) % data->full_size;
+		ptr_k = data->top_a;
 		while (ptr_k)
 		{
 			if (ptr_k->num_index == target)

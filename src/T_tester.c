@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   T_checker.c                                        :+:      :+:    :+:   */
+/*   T_tester.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:09:40 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 04:46:08 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 15:25:07 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		tester(t_stacks *stacks);
-static int	reading_cmd(char *raw, t_stacks *stacks);
-static void	helper_73(t_stacks *stacks, char *raw, int *error, int *sw);
+void		tester(t_data *data);
+static int	reading_cmd(char *raw, t_data *data);
+static void	helper_73(t_data *data, char *raw, int *error, int *sw);
 static int	wii_strikes_back(char *cmd, int *index);
 
 ///////////////////////////////////////////////////////////////////////////////]
 //			TESTER
 //	#	main tester, ask for raw, execute, loop out when [ctrl-D]
-void	tester(t_stacks *stacks)
+void	tester(t_data *data)
 {
 	char	*raw;
 	int		sw;
@@ -34,34 +34,34 @@ void	tester(t_stacks *stacks)
 			break ;
 		error = wii_wrapper(raw[0]);
 		if (error >= 0)
-			exec_string(stacks, raw, 0);
+			exec_string(data, raw, 0);
 		else if (error <= -4)
-			error = reading_cmd(raw, stacks);
-		helper_73(stacks, raw, &error, &sw);
+			error = reading_cmd(raw, data);
+		helper_73(data, raw, &error, &sw);
 		if (error == -1)
 			put("\n\033[38;5;94mtrying:" RESET " %s\n" MSG_BADCMD, raw);
 		free_s(raw);
 	}
 }
 
-static void	helper_73(t_stacks *stacks, char *raw, int *error, int *sw)
+static void	helper_73(t_data *data, char *raw, int *error, int *sw)
 {
 	if (raw[0] == '*' && (*error)++)
 		*sw ^= 1;
-	print_header(stacks, 0b111, *sw);
+	print_header(data, 0b111, *sw);
 	if (raw[0] == '-' && (*error)++)
-		function1(stacks, atoi_v(&raw[1]));
+		function1(data, atoi_v(&raw[1]), *sw);
 	else if (raw[0] == '+' && (*error)++)
-		function2(stacks, atoi_v(&raw[0]));
+		function2(data, atoi_v(&raw[1]), *sw);
 	else if (raw[0] == '.' && (*error)++)
-		function3(stacks);
+		function3(data, *sw);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
 //	#	takes raw input, look for 'pb\n', execute
 //	return -1 on bad command
 //  return 0 on EOF
-static int	reading_cmd(char *raw, t_stacks *stacks)
+static int	reading_cmd(char *raw, t_data *data)
 {
 	int	i;
 	int	cmd;
@@ -77,7 +77,7 @@ static int	reading_cmd(char *raw, t_stacks *stacks)
 			cmd = wii_strikes_back(&raw[i], &i);
 			if (cmd < 0)
 				return (-1);
-			stacks->controls[cmd](stacks, 0);
+			data->controls[cmd](data, 0);
 		}
 	}
 	return (0);

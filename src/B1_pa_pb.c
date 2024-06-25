@@ -12,17 +12,17 @@
 
 #include "push_swap.h"
 
-int	pb(t_stacks *s, char sw);
-int	pa(t_stacks *s, char sw);
-int	ra(t_stacks *s, char sw);
-int	rb(t_stacks *s, char sw);
-static void	push_helper(t_entry **push_to, t_entry **push_from, int size);
+int	pb(t_data *s, char sw);
+int	pa(t_data *s, char sw);
+int	ra(t_data *s, char sw);
+int	rb(t_data *s, char sw);
+static void	push_helper(t_num **push_to, t_num **push_from, int size);
 
 ///////////////////////////////////////////////////////////////////////////////]
 //  Push the first element at the top of a and put it at the top of b.
 //  Do nothing if a is empty.
 //  #   PUSH B
-int	pb(t_stacks *s, char sw)
+int	pb(t_data *s, char sw)
 {
 	if (sw)
 		put(PB "\n");
@@ -38,7 +38,7 @@ int	pb(t_stacks *s, char sw)
 }
 
 //  #   PUSH A
-int	pa(t_stacks *s, char sw)
+int	pa(t_data *s, char sw)
 {
 	if (sw)
 		put(PA "\n");
@@ -56,7 +56,7 @@ int	pa(t_stacks *s, char sw)
 ///////////////////////////////////////////////////////////////////////////////]
 //  Shift up all elements of stack a by 1. The first element becomes the last
 //  #   ROTATE A
-int	ra(t_stacks *s, char sw)
+int	ra(t_data *s, char sw)
 {
 	if (sw)
 		put(RA "\n");
@@ -67,7 +67,7 @@ int	ra(t_stacks *s, char sw)
 }
 
 //  #   ROTATE B
-int	rb(t_stacks *s, char sw)
+int	rb(t_data *s, char sw)
 {
 	if (sw)
 		put(RB "\n");
@@ -78,7 +78,7 @@ int	rb(t_stacks *s, char sw)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-static void	push_helper(t_entry **push_to, t_entry **push_from, int size)
+static void	push_helper(t_num **push_to, t_num **push_from, int size)
 {
 	if (size)
 	{

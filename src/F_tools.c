@@ -13,7 +13,7 @@
 #include "push_swap.h"
 
 int		wii_wrapper(char c);
-int		exec_string(t_stacks *stacks, char *instructions, char sw2);
+int		exec_string(t_data *data, char *instructions, char sw2);
 ///////////////////////////////////////////////////////////////////////////////]
 /*******************************************************************************
  * 		takes in "0123456789: \nabpsr"
@@ -38,7 +38,7 @@ int	wii_wrapper(char c)
 ///////////////////////////////////////////////////////////////////////////////]
 //	#	takes in "0123456789a11", and do it, instructions can be NULL
 //  if sw2: print instructions beeing executed
-int	exec_string(t_stacks *stacks, char *instructions, char sw2)
+int	exec_string(t_data *data, char *instructions, char sw2)
 {
 	int i = -1;
 	int b;
@@ -49,7 +49,7 @@ int	exec_string(t_stacks *stacks, char *instructions, char sw2)
 	{
 		b = wii_wrapper(instructions[i]);
 		if (b >= 0)
-			stacks->controls[b](stacks, sw2);
+			data->controls[b](data, sw2);
 	}
 	return (len(instructions));
 }

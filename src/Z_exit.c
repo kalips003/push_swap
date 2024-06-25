@@ -12,15 +12,34 @@
 
 #include "push_swap.h"
 
-int			end(t_stacks *s, char *message, int exit_code);
-void		free_algos(t_stacks *stacks);
-static void	free_stack(t_entry *first);
-int			final_test(t_stacks *s);
+void		ft_break(int num, char *string2, int cls, void *ptr);
+int			end(t_data *s, char *message, int exit_code);
+void		free_algos(t_data *data);
+static void	free_stack(t_num *first);
+int			final_test(t_data *s);
 
 ///////////////////////////////////////////////////////////////////////////////]
 //	#	EXIT FUNCTION
-//  #   free ptr + stacks; if exit_code < 0, exit
-int	end(t_stacks *s, char *message, int exit_code)
+//		bit[1, .] = cls
+//		bit[., 1] = stops
+void	ft_break(int num, char *string2, int cls, void *ptr)
+{
+	int	a;
+
+	a = ft_print_cat(num, string2, cls);
+	if (ptr)
+		put("--->num = %p; algo = %s\n", ptr, ((t_num*)ptr)->algo);
+	else
+		put("--->num = %p\n", ptr);
+	put(BLINK "\033[38;5;%dm\n\t\t>>>  続けましょう？  <<<\n" \
+		RESET, a);
+	free_s(gnl(0));
+}
+
+///////////////////////////////////////////////////////////////////////////////]
+//	#	EXIT FUNCTION
+//  #   free ptr + data; if exit_code < 0, exit
+int	end(t_data *s, char *message, int exit_code)
 {
 	if (s)
 	{
@@ -41,19 +60,22 @@ int	end(t_stacks *s, char *message, int exit_code)
 
 ///////////////////////////////////////////////////////////////////////////////]
 //  free all strings algo
-void	free_algos(t_stacks *stacks)
+void	free_algos(t_data *data)
 {
 	int		i;
-	t_entry	*cursor;
+	t_num	*cursor;
 
 	i = -1;
-	cursor = stacks->top_a;
-	while (++i < stacks->full_size)
+	cursor = data->top_a;
+	ft_break(-1, "in free", 2, data->top_a);
+	while (++i < data->full_size)
 	{
-		if (i == stacks->size_a)
-			cursor = stacks->top_b;
+		ft_break(10 * i + 1, "in free loop", 2, data->top_a);
+		if (i == data->size_a)
+			cursor = data->top_b;
 		if (!cursor)
 			break ;
+		ft_break(10 * i + 2, "in free loop", 2, data->top_a);
 		cursor->algo = free_s(cursor->algo);
 		cursor = cursor->below;
 	}
@@ -61,10 +83,10 @@ void	free_algos(t_stacks *stacks)
 
 ///////////////////////////////////////////////////////////////////////////////]
 //  #  FREE THE FULL STACK
-static void	free_stack(t_entry *first)
+static void	free_stack(t_num *first)
 {
-	t_entry	*next;
-	t_entry	*current;
+	t_num	*next;
+	t_num	*current;
 
 	if (first == NULL)
 		return ;
@@ -80,9 +102,9 @@ static void	free_stack(t_entry *first)
 
 ////////////////////////////////////////////////////////////
 // final check, 0 = KO, 1 = OK
-int	final_test(t_stacks *s)
+int	final_test(t_data *s)
 {
-	t_entry	*temp;
+	t_num	*temp;
 	int		i;
 
 	if (s->size_b || s->size_a != s->full_size)

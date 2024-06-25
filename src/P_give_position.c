@@ -12,17 +12,17 @@
 
 #include "push_swap.h"
 
-void		give_position(t_stacks *s);
-void		reevalue(t_stacks *s, t_entry *num);
-static void	helper_962(t_entry *current);
-static void	helper_give_posi(t_stacks *s, t_entry *current, char a, int i);
+void		give_position(t_data *s);
+void		reevalue(t_data *s, t_num *num);
+static void	helper_962(t_num *current);
+static void	helper_give_posi(t_data *s, t_num *current, char a, int i);
 
 ///////////////////////////////////////////////////////////////////////////////]
 // 
-static void	helper_give_blk(t_stacks *s, t_entry *num);
-static void	helper_give_blk(t_stacks *s, t_entry *num)
+static void	helper_give_blk(t_data *s, t_num *num);
+static void	helper_give_blk(t_data *s, t_num *num)
 {
-	t_entry	*ptr;
+	t_num	*ptr;
 	int		i;
 
 	ptr = num;
@@ -58,11 +58,11 @@ static void	helper_give_blk(t_stacks *s, t_entry *num)
 	num->blk_start = ptr;
 }
 
-void	helper_give_blk_wrapper(t_stacks *s);
-void	helper_give_blk_wrapper(t_stacks *s)
+void	helper_give_blk_wrapper(t_data *s);
+void	helper_give_blk_wrapper(t_data *s)
 {
 	int		i;
-	t_entry	*ptr;
+	t_num	*ptr;
 
 	i = -1;
 	ptr = s->top_a;
@@ -71,17 +71,16 @@ void	helper_give_blk_wrapper(t_stacks *s)
 		if (i == s->size_a)
 			ptr = s->top_b;
 		helper_give_blk(s, ptr);
-		// put("(%d) %p: %d :%p\n", ptr->num_index, ptr->blk_start, ptr->size_blk, ptr->blk_end);
 		ptr = ptr->below;
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////]
 //  #  give each member of A & B its position
 // 		[0 size of A] [-1 -size of B] [dist from origin]
-void	give_position(t_stacks *s)
+void	give_position(t_data *s)
 {
 	int i;
-	t_entry *current;
+	t_num *current;
 
 	i = -1;
 	current = s->top_a;
@@ -102,10 +101,10 @@ void	give_position(t_stacks *s)
 
 ///////////////////////////////////////////////////////////////////////////////]
 // reassignn value and char to num
-void	reevalue(t_stacks *s, t_entry *num)
+void	reevalue(t_data *s, t_num *num)
 {
 	int		i;
-	t_entry	*current;
+	t_num	*current;
 
 	i = -1;
 	current = s->top_a->above;
@@ -128,7 +127,7 @@ void	reevalue(t_stacks *s, t_entry *num)
 ///////////////////////////////////////////////////////////////////////////////]
 //  #  give one member of A & B its position
 // 		[0 size of A] [-1 -size of B] [dist from origin]
-static void	helper_give_posi(t_stacks *s, t_entry *current, char a, int i)
+static void	helper_give_posi(t_data *s, t_num *current, char a, int i)
 {
 	if (a == 'A')
 	{
@@ -146,7 +145,7 @@ static void	helper_give_posi(t_stacks *s, t_entry *current, char a, int i)
 
 ///////////////////////////////////////////////////////////////////////////////]
 // #    fills in dist, dist_p, dist_n
-static void	helper_962(t_entry *current)
+static void	helper_962(t_num *current)
 {
 	int	abs_posi;
 

@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-int	rr(t_stacks *s, char sw);
-int	rra(t_stacks *s, char sw);
-int	rrb(t_stacks *s, char sw);
-int	rrr(t_stacks *s, char sw);
+int	rr(t_data *s, char sw);
+int	rra(t_data *s, char sw);
+int	rrb(t_data *s, char sw);
+int	rrr(t_data *s, char sw);
 
 ///////////////////////////////////////////////////////////////////////////////]
 //  rr : ra and rb at the same time.
-int	rr(t_stacks *s, char sw)
+int	rr(t_data *s, char sw)
 {
 	if (sw)
 		put(RR "\n");
@@ -31,7 +31,7 @@ int	rr(t_stacks *s, char sw)
 ///////////////////////////////////////////////////////////////////////////////]
 //  Shift down all elements of stack a by 1. The last element becomes the first
 //  #   REVERSE ROTATE A
-int	rra(t_stacks *s, char sw)
+int	rra(t_data *s, char sw)
 {
 	if (sw)
 		put(RRA "\n");
@@ -42,7 +42,7 @@ int	rra(t_stacks *s, char sw)
 }
 
 //  #   REVERSE ROTATE B
-int	rrb(t_stacks *s, char sw)
+int	rrb(t_data *s, char sw)
 {
 	if (sw)
 		put(RRB "\n");
@@ -53,7 +53,7 @@ int	rrb(t_stacks *s, char sw)
 }
 
 //  rrr : rra and rrb at the same time.
-int	rrr(t_stacks *s, char sw)
+int	rrr(t_data *s, char sw)
 {
 	if (sw)
 		put(RRR "\n");

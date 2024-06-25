@@ -12,20 +12,20 @@
 
 #include "push_swap.h"
 
-void	ini_cmd(t_stacks *stacks);
+void	ini_cmd(t_data *data);
 
 ///////////////////////////////////////////////////////////////////////////////]
-void	ini_cmd(t_stacks *stacks)
+void	ini_cmd(t_data *data)
 {
-	stacks->controls[0] = pb;
-	stacks->controls[1] = pa;
-	stacks->controls[2] = sa;
-	stacks->controls[3] = sb;
-	stacks->controls[4] = ss;
-	stacks->controls[5] = ra;
-	stacks->controls[6] = rb;
-	stacks->controls[7] = rr;
-	stacks->controls[8] = rra;
-	stacks->controls[9] = rrb;
-	stacks->controls[10] = rrr;
+	data->controls[0] = pb;
+	data->controls[1] = pa;
+	data->controls[2] = sa;
+	data->controls[3] = sb;
+	data->controls[4] = ss;
+	data->controls[5] = ra;
+	data->controls[6] = rb;
+	data->controls[7] = rr;
+	data->controls[8] = rra;
+	data->controls[9] = rrb;
+	data->controls[10] = rrr;
 }

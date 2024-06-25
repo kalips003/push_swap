@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void		lets_rrr(t_algo *a, t_entry *one, t_entry *two, int bit);
+void		lets_rrr(t_algo *a, t_num *one, t_num *two, int bit);
 static char	*lets_rr(char *s1, char *s2);
 static void	lets_r(char *c1, char *c2);
 
@@ -21,7 +21,7 @@ static void	lets_r(char *c1, char *c2);
 //  bit 0b10 = one on -1
 //  bit 0b00 = one on 0
 //  bit 0b01 = one on -1
-void	lets_rrr(t_algo *a, t_entry *one, t_entry *two, int bit)
+void	lets_rrr(t_algo *a, t_num *one, t_num *two, int bit)
 {
 	a->str1 = lets_rr(str("%.*c", one->dist_p + ((bit & 2) >> 1), '5'
 				+ (one->pile_c == 'B')), str("%.*c", two->dist_p + (bit & 1),

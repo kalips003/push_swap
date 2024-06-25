@@ -2,8 +2,8 @@ NAME = push_swap
 NAME_BONUS = checker
 
 CC = cc
-FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER) -lm
-# FLAGS = -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
+# FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER) -lm
+FLAGS = -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
 
 all: $(NAME)
 
@@ -33,7 +33,7 @@ c: libft $(NAME) inc/push_swap.h
 	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
 	./$(NAME) $$ARGS | wc -l
 
-v: libft $(NAME_BONUS) inc/push_swap.h
+v: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
 	-$(VALGRIND) ./$(word 2, $^) $(ARGS2)
 
