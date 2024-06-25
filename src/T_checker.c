@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:09:40 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 01:30:09 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 04:46:08 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	wii_strikes_back(char *cmd, int *index);
 void	tester(t_stacks *stacks)
 {
 	char	*raw;
-	char	sw;
+	int		sw;
 	int		error;
 
 	sw = 0;
@@ -39,8 +39,7 @@ void	tester(t_stacks *stacks)
 			error = reading_cmd(raw, stacks);
 		helper_73(stacks, raw, &error, &sw);
 		if (error == -1)
-			put("\033[38;5;94mtrying:" RESET " %s\n" MSG_BADCMD, raw);
-		put("\033[38;5;58;4m\n>input" RESET "\n");
+			put("\n\033[38;5;94mtrying:" RESET " %s\n" MSG_BADCMD, raw);
 		free_s(raw);
 	}
 }
@@ -49,12 +48,12 @@ static void	helper_73(t_stacks *stacks, char *raw, int *error, int *sw)
 {
 	if (raw[0] == '*' && (*error)++)
 		*sw ^= 1;
-	print_header(stacks, 0b111, sw);
+	print_header(stacks, 0b111, *sw);
 	if (raw[0] == '-' && (*error)++)
 		function1(stacks, atoi_v(&raw[1]));
-	if (raw[0] == '+' && (*error)++)
+	else if (raw[0] == '+' && (*error)++)
 		function2(stacks, atoi_v(&raw[0]));
-	if (raw[0] == '.' && (*error)++)
+	else if (raw[0] == '.' && (*error)++)
 		function3(stacks);
 }
 
@@ -71,11 +70,12 @@ static int	reading_cmd(char *raw, t_stacks *stacks)
 	while (raw[++i])
 	{
 		cmd = wii_wrapper(raw[i]);
-		if (cmd <= -2)
+		if (cmd > -2)
 			break ;
 		if (cmd < -3)
 		{
-			if ((cmd = wii_strikes_back(&raw[i], &i)) < 0)
+			cmd = wii_strikes_back(&raw[i], &i);
+			if (cmd < 0)
 				return (-1);
 			stacks->controls[cmd](stacks, 0);
 		}

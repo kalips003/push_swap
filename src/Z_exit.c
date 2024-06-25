@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int			exit_all(t_stacks *s, char *message, int exit_code, void *ptr);
+int			end(t_stacks *s, char *message, int exit_code);
 void		free_algos(t_stacks *stacks);
 static void	free_stack(t_entry *first);
 int			final_test(t_stacks *s);
@@ -20,23 +20,23 @@ int			final_test(t_stacks *s);
 ///////////////////////////////////////////////////////////////////////////////]
 //	#	EXIT FUNCTION
 //  #   free ptr + stacks; if exit_code < 0, exit
-int	exit_all(t_stacks *s, char *message, int exit_code, void *ptr)
+int	end(t_stacks *s, char *message, int exit_code)
 {
-	free_s(ptr);
 	if (s)
 	{
 		free_algos(s);
 		free_tab(s->args);
-		if (s->size_a && s->top_a)
-			free_stack(s->top_a);
-		if (s->size_b && s->top_b)
-			free_stack(s->top_b);
+		// if (s->size_a && s->top_a)
+		free_stack(s->top_a);
+		// if (s->size_b && s->top_b)
+		free_stack(s->top_b);
 	}
-	if (exit_code)
+	if (message && exit_code)
 		put(RED "Some error happnd' honey:\n" RESET "\t%s", message);
-	if (exit_code < 0)
-		exit(exit_code);
-	return (exit_code);
+	else if (message)
+		put("\t%s", message);
+	exit(exit_code);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////]

@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/25 01:30:11 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 03:08:08 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,27 @@
 
 # include "libft.h"
 
+///////////////////////////////////////////////////////////////////////////////]
+typedef struct s_stacks t_stacks;
+typedef struct s_entry t_entry;
 typedef int (*f_cmd)(t_stacks *stacks, char sw);
-//							//   CONTAINER FOR 1 NUMBER
+///////////////////////////////////////////////////////////////////////////////]
+//		MOTHER STRUCT WITH BOTH A & B
+typedef struct s_stacks
+{
+	struct s_entry	*top_a;
+	struct s_entry	*top_b;
+	struct s_entry	*zero;
+
+	f_cmd			controls[11];
+	char			**args;
+	int				full_size;
+	int				size_a;
+	int				size_b;
+}	t_stacks;
+
+///////////////////////////////////////////////////////////////////////////////]
+//		CONTAINER FOR 1 NUMBER
 typedef struct s_entry
 {
 //  const?
@@ -48,19 +67,6 @@ typedef struct s_entry
     int     algo_sz;
 
 }	t_entry;
-//							//   STRUCT WITH BOTH A & B
-typedef struct s_stacks
-{
-    struct s_entry *top_a;
-    struct s_entry *top_b;
-    struct s_entry *zero;
-
-	f_cmd	controls[11];
-    char    **args;
-    int     full_size;
-    int     size_a;
-    int     size_b;
-}	t_stacks;
 //							//   STRUCT FOR ALGORITHM
 typedef struct s_algo
 {
@@ -88,6 +94,8 @@ typedef struct s_algo
 ///////////////////////////////////////////////////////////////////////////////]
 //	A - CREATE STRUCT
 void	ini_stacks(int ac, char **av, t_stacks *stacks);
+//	A - INITIALIZATION 2
+void	ini_cmd(t_stacks *stacks);
 //	B - COMMANDS
 int		pb(t_stacks *s, char sw);
 int		pa(t_stacks *s, char sw);
@@ -101,10 +109,34 @@ int		sa(t_stacks *s, char sw);
 int		sb(t_stacks *s, char sw);
 int		ss(t_stacks *s, char sw);
 ///////////////////////////////////////////////////////////////////////////////]
-//	Z - EXIT
-void	free_algos(t_stacks *stacks);
-void	free_stack(t_entry *first);
-int		exit_all(t_stacks *s, char *message, int exit_code, void *ptr);
+//	F - TOOLS
+int		wii_wrapper(char c);
+int		exec_string(t_stacks *stacks, char *instructions, char sw2);
+///////////////////////////////////////////////////////////////////////////////]
+//	P - GIVE POSITION
+void	give_position(t_stacks *s);
+void	reevalue(t_stacks *s, t_entry *num);
+///////////////////////////////////////////////////////////////////////////////]
+//	Q - ALGO 1
+t_entry	*assign_str_all(t_stacks *stacks);
+int		assign_str(t_stacks *s, t_entry *num);
+void	fill_stru_algo(t_stacks *stacks, t_algo *a, t_entry *num);
+char	*smallest_str(int nb, ...);
+int		is_in_order(t_stacks *s, t_entry *previous, t_entry *next);
+//	Q - ALGO 2
+int		algo_aa(t_algo *a);
+int		algo_bb(t_algo *a);
+int		algo_ab(t_algo *a);
+int		algo_ba(t_algo *a);
+//	Q - ALGO 3
+void	lets_rrr(t_algo *a, t_entry *one, t_entry *two, int bit);
+///////////////////////////////////////////////////////////////////////////////]
+//	T - TESTER
+void	tester(t_stacks *stacks);
+//	U - TESTER FUNCTION
+void	function1(t_stacks *stacks, int i);
+void	function2(t_stacks *stacks, int i);
+void	function3(t_stacks *stacks);
 ///////////////////////////////////////////////////////////////////////////////]
 //	Y - PRINT
 void	print(t_stacks *stacks, int sw, int bit);
@@ -112,63 +144,24 @@ void	print_header(t_stacks *stacks, int bit, int sw);
 void	print_stru_algo(t_algo *a);
 void	print_stack(t_stacks *stacks, t_entry *s, char sw);
 ///////////////////////////////////////////////////////////////////////////////]
-//	P - GIVE POSITION
-void	give_position(t_stacks *s);
-void	reevalue(t_stacks *s, t_entry *num);
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////]
+//	Z - EXIT
+int		end(t_stacks *s, char *message, int exit_code);
 void	free_algos(t_stacks *stacks);
-void	free_stack(t_entry *first);
-int		exit_all(t_stacks *s, char *message, int exit_code, void *ptr);
+int		final_test(t_stacks *s);
+
+
+
+
+
+
+
+
+
+
+
+/*
 ///////////////////////////////////////////////////////////////////////////////]
-void	print(t_stacks *stacks, int sw, int bit);
-void	print_stack_c(t_stacks *stacks, t_entry *s, char sw);
-void	print_header(t_stacks *stacks, int bit, int sw);
-void	print_stru_algo(t_algo *a);
-///////////////////////////////////////////////////////////////////////////////]
-void    give_position(t_stacks *s);
-void    reevalue(t_stacks *s, t_entry *num);
-///////////////////////////////////////////////////////////////////////////////]
-int    exec_string(t_stacks *stacks, char *instructions, char sw2);
-void    function_cmd(t_stacks *stacks, int i, char sw2);
-
-int    reading_cmd(char *raw, t_stacks *stacks);
-char    reverse_c(char c);
-char    *reverse_str(char *cmd);
-void    tester(t_stacks *stacks);
-
-int wii_wrapper(char c);
-int wii_strikes_back(char *cmd, int *index);
-
-int final_test(t_stacks *s);
-void test_output(t_stacks *stacks);
-void    function1(t_stacks *stacks, int i);
-void    function2(t_stacks *stacks, int i);
-void    function3(t_stacks *stacks);
-
-t_entry *find_target(t_stacks *stacks, t_entry *num);
-int  is_in_order(t_stacks *s, t_entry *previous, t_entry *next);
-void    fill_stru_algo(t_stacks *stacks, t_algo *a, t_entry *num);
-t_entry *assign_str_all(t_stacks *stacks);
-
-int algo_aa(t_algo *a);
-int algo_bb(t_algo *a);
-int algo_ab(t_algo *a);
-int algo_ba(t_algo *a);
-int assign_str(t_stacks *s, t_entry *num);
-
-
-
-///////////////////////////////////////////////////////////////////////////////]
-char	reverse_c(char c);
+// char	reverse_c(char c);
 char	reverse_c(char c)
 {
 	if (c >= '1')
@@ -182,7 +175,7 @@ char	reverse_c(char c)
 	return (c);
 }
 
-char	*reverse_str(char *cmd);
+// char	*reverse_str(char *cmd);
 char	*reverse_str(char *cmd)
 {
 	int		size;
@@ -198,7 +191,7 @@ char	*reverse_str(char *cmd)
 	return (reverse);
 }
 ///////////////////////////////////////////////////////////////////////////////]
-
+*/
 
 
 
@@ -234,6 +227,22 @@ char	*reverse_str(char *cmd)
 
 # define UNDER_B "\033[48;5;4m" RESET
 # define UNDER_R "\033[48;5;1m" RESET
+
+# define MSG_KO "\e[5m\033[38;5;147m\n\
+\t██╗░░██╗░█████╗░░░░░░░░░░\n\
+\t██║░██╔╝██╔══██╗░░░░░░░░░\n\
+\t█████═╝░██║░░██║░░░░░░░░░\n\
+\t██╔═██╗░██║░░██║░░░░░░░░░\n\
+\t██║░╚██╗╚█████╔╝██╗██╗██╗\n\
+\t╚═╝░░╚═╝░╚════╝░╚═╝╚═╝╚═╝\e[0m\n"
+
+# define MSG_OK "\e[5m\033[38;5;77m\n\
+\t░█████╗░██╗░░██╗  ██╗\n\
+\t██╔══██╗██║░██╔╝  ██║\n\
+\t██║░░██║█████═╝░  ██║\n\
+\t██║░░██║██╔═██╗░  ╚═╝\n\
+\t╚█████╔╝██║░╚██╗  ██╗\n\
+\t░╚════╝░╚═╝░░╚═╝  ╚═╝\e[0m\n"
 
 #endif
 

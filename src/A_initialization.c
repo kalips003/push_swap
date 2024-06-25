@@ -31,7 +31,7 @@ void	ini_stacks(int ac, char **av, t_stacks *stacks)
 	{
 		stacks->args = split(av[1], " ");
 		if (!stacks->args)
-			exit_all(stacks, MSG_MALLOC, -3, NULL);
+			end(stacks, MSG_MALLOC, 1);
 		stacks->full_size = tab_size(stacks->args);
 		stacks->size_a = stacks->full_size;
 		stacks->top_a = create_stack_a(stacks->full_size + 1, stacks->args, stacks, 1);
@@ -74,15 +74,15 @@ static t_entry	*create_new_node(t_entry *last_node, char *arg, t_stacks *s)
 
 	new_node = (t_entry *)mem(0, sizeof(t_entry));
 	if (!new_node)
-		exit_all(s, MSG_MALLOC, -9, NULL);
+		end(s, MSG_MALLOC, 1);
 	new_node->algo = NULL;
 	new_node->above = last_node;
 	error = 0;
 	new_node->num = ft_atoi(arg, &error);
 	if (error == -2)
-		exit_all(s, MSG_TOOBIG, error, new_node);
+		(free_s(new_node), end(s, MSG_TOOBIG, 0));
 	else if (error < 0)
-		exit_all(s, MSG_NOTNUM, error, new_node);
+		(free_s(new_node), end(s, MSG_NOTNUM, 0));
 	if (last_node)
 		last_node->below = new_node;
 	return (new_node);
@@ -104,7 +104,7 @@ static void	assign_value(t_stacks *stacks)
 		while (ptr_k)
 		{
 			if (ptr_i != ptr_k && ptr_i->num == ptr_k->num)
-				exit_all(stacks, MSG_DUPLICATE, -3, NULL);
+				end(stacks, MSG_DUPLICATE, 0);
 			if (ptr_i->num > ptr_k->num)
 				ptr_i->num_index++;
 			ptr_k = ptr_k->below;
@@ -139,10 +139,4 @@ static void	assign_target(t_stacks *stacks)
 		}
 		ptr_i = ptr_i->below;
 	}
-}
-
-///////////////////////////////////////////////////////////////////////////////]
-static void	assign_blk(t_stacks *stacks)
-{
-
 }

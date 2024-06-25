@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:51:31 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/24 19:47:14 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 02:45:32 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int main(int ac, char **av)
 	// put("\talgo cost = %d\n", i);
 ////    FOOTER      ////
 	//test_output(&stacks);
-	exit_all(&stacks, NULL, 0, NULL);
+	end(&stacks, NULL, 0);
 	return (0);
 }

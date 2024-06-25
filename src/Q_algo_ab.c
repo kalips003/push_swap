@@ -6,16 +6,16 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 00:17:38 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 00:29:11 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 02:05:42 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int algo_aa(t_algo *a);
-int algo_bb(t_algo *a);
-int algo_ab(t_algo *a);
-int algo_ba(t_algo *a);
+int	algo_aa(t_algo *a);
+int	algo_bb(t_algo *a);
+int	algo_ab(t_algo *a);
+int	algo_ba(t_algo *a);
 
 ///////////////////////////////////////////////////////////////////////////////]
 // (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr

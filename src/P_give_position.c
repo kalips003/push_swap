@@ -40,7 +40,7 @@ static void	helper_give_blk(t_stacks *s, t_entry *num)
 	if (i != 1)
 		num->size_blk *= -1 + 2 * (num->pile_c == 'A');
 	num->blk_end = ptr;
-	put("--->%d", num->size_blk);
+	// put("--->%d", num->size_blk);
 
 	ptr = num;
 	i = 0;
@@ -71,7 +71,7 @@ void	helper_give_blk_wrapper(t_stacks *s)
 		if (i == s->size_a)
 			ptr = s->top_b;
 		helper_give_blk(s, ptr);
-		put("(%d) %p: %d :%p\n", ptr->num_index, ptr->blk_start, ptr->size_blk, ptr->blk_end);
+		// put("(%d) %p: %d :%p\n", ptr->num_index, ptr->blk_start, ptr->size_blk, ptr->blk_end);
 		ptr = ptr->below;
 	}
 }

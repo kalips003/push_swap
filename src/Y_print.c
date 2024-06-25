@@ -45,8 +45,9 @@ void    print_header(t_stacks *stacks, int bit, int sw)
         "\n\t[ 5 ] "RA"  [ 6 ] "RB"  [ 7 ] "RR"  "
         "\n\t[ 8 ] "RRA" [ 9 ] "RRB" [ : ] "RRR"\n\n"
         COLOR" [ "RESET"*"COLOR" ] TOOGLE  "
-        "[ "RESET"+"COLOR" ] USE MAGIC  "
-        "[ "RESET"-"COLOR" ] USE MAGIC 2  "
+        "[ "RESET"-"COLOR" ] USE MAGIC 1 "
+        "[ "RESET"+"COLOR" ] USE MAGIC 2 "
+        "[ "RESET"."COLOR" ] USE MAGIC 3  "
         "[ "RESET"^D"COLOR" ] grade me\n\n"RESET);
     if (((bit >> 1) & 1) == 1)
         print(stacks, sw, bit);
@@ -64,9 +65,10 @@ void	print_stack(t_stacks *stacks, t_entry *s, char sw)
 	while (s && ++i < s->size_s)
 	{
 		// put("(->%d:%d)\n", i, s->size_s);
-		if (s->num_index == s->above->num_index - 1 || s->num_index == s->below->num_index + 1)
+		// if (s->num_index == s->above->num_index - 1 || s->num_index == s->below->num_index + 1)
+		if ((s->target == s->above && s->pile_c == 'A') || (s->target == s->below && s->pile_c == 'B'))
 			put(BLUE);
-		else if (s->num_index == s->below->num_index - 1 || s->num_index == s->above->num_index + 1)
+		else if ((s->target == s->below && s->pile_c == 'A') || (s->target == s->above && s->pile_c == 'B'))
 			put(RED);
 		else
 			put(RESET);
@@ -76,11 +78,7 @@ void	print_stack(t_stacks *stacks, t_entry *s, char sw)
 			put("\033[4m""% 3d", s->num_index);
 		else
 			put("\033[4m""% 3d", s->num);
-		if (s->pile_c == 'A')
-			s = s->below;
-		else
-			s = s->above;
-		// s = *(t_entry **)((t_entry **)s->above + (s->pile_c == 'A'));
+		s = *((t_entry **)s + (s->pile_c == 'A'));
 	}
 	put(RESET);
 }

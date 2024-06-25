@@ -3,20 +3,16 @@
 ////////////////////////////////////////////////////////////
 int main(int ac, char **av)
 {
-    t_stacks    stacks;
+	t_stacks	stacks;
 
-    if (ac < 2)
-        return (put(MSG_NONUM));
-    ini_stacks(ac, av, &stacks);
-//////////////////////////////
-
-    print_header(&stacks, 0b111, 0);
-    tester(&stacks);
-    test_output(&stacks);
-
-
-//////////////////////////////
-    exit_all(&stacks, NULL, 0, NULL);
-    return (0);
+	if (ac < 2)
+		return (put(MSG_NONUM), 0);
+	ini_stacks(ac, av, &stacks);
+	print_header(&stacks, 0b111, 0);
+	tester(&stacks);
+	if (!final_test(&stacks))
+		end(&stacks, MSG_KO, 0);
+	end(&stacks, MSG_OK, 0);
+	return (0);
 }
 ////////////////////////////////////////////////////////////
