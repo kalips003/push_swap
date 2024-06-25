@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/25 15:25:32 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 20:30:54 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_entry
 	struct s_entry	*hunter;
 
 	int     num;
-    int     num_index;
+    int     num_i;
 //	size of current stack
     int     size_s;
 //	A or B
@@ -120,6 +120,14 @@ void	reevalue(t_data *s, t_num *num);
 ///////////////////////////////////////////////////////////////////////////////]
 //	Q - ALGO 1
 int		algo_1(t_data *data, int sw);
+int		ft_algo_1(t_data *s, t_num *num);
+void	helper_1(t_data *data, t_algo *a, t_num *num);
+//	Q - ALGO 2
+int		algo_2(t_data *data, int sw);
+int		ft_algo_2(t_data *s, t_num *num);
+void	helper_2(t_data *data, t_algo *a, t_num *num);
+t_num	*assign_str_all_v2(t_data *data, int (*best_str_algo)(t_data*, t_num*));
+int algo_ba_2(t_algo *a);
 //	Q - ALGO
 int		algo_aa(t_algo *a);
 int		algo_bb(t_algo *a);
@@ -128,9 +136,8 @@ int		algo_ba(t_algo *a);
 //	Q - ALGO
 void	lets_rrr(t_algo *a, t_num *one, t_num *two, int bit);
 //	Q - ALGO TOOLS
-t_num	*assign_str_all(t_data *data);
-int		assign_str(t_data *s, t_num *num);
-void	fill_stru_algo(t_data *data, t_algo *a, t_num *num);
+t_num	*assign_str_all(t_data *data, int (*best_str_algo)(t_data*, t_num*));
+void	helper_block_size(t_data *data, t_algo *a);
 char	*smallest_str(int nb, ...);
 int		is_in_order(t_data *s, t_num *previous, t_num *next);
 ///////////////////////////////////////////////////////////////////////////////]

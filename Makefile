@@ -14,36 +14,62 @@ all: $(NAME)
 ARGS = "1 6 5 7 9 4 8 33"
 ARGS2 = 1 6 5 7 9 4 8 33
 ARGS3 = 1 2 3 5 4
+ARGS4 = 5 4 8 66 -11 9 7 6
+ARGS5 = -648 -249 -651 -970 -581 -19 482 -116 76 910 -388 -41 631 -49 696 973 -543 105 -75 21 542 2 478 549 -670
 
 MIN = -999
 MAX = 999
 HOW_MANY = 100
-HOW_MUCH = 10
+HOW_MANY2 = 25
+HOW_MUCH = 50
 
 a: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
-	./$(word 2, $^) $(ARGS3)
+	./$(word 2, $^) $(ARGS5)
 
 b: libft $(NAME_BONUS) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
-	./$(word 2, $^) $(ARGS3)
+	./$(word 2, $^) $(ARGS5)
 
+# random the args
 c: libft $(NAME) inc/push_swap.h
-	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) times $(HOW_MUCH) ね?, $(CLS), );
+	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) number ね?, $(CLS), );
 	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
-	./$(NAME) $$ARGS | wc -l
+	echo $$ARGS; \
+	./$(word 2, $^) $$ARGS | wc -l
 
+c2: libft $(NAME) inc/push_swap.h
+	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) number ね?, $(CLS), );
+	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
+	echo $$ARGS; \
+	./$(word 2, $^) $$ARGS
+
+# random the args
+d: libft $(NAME_BONUS) inc/push_swap.h
+	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY2) number ね?, $(CLS), );
+	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY2) | tr '\n' ' ' | sed -r 's/ $$//'); \
+	./$(word 2, $^) $$ARGS
+
+# valgrind
 v: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
 	-$(VALGRIND) ./$(word 2, $^) $(ARGS2)
+
+# valgrind
+w: libft $(NAME_BONUS) inc/push_swap.h
+	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
+	-$(VALGRIND) ./$(word 2, $^) $(ARGS2)
+
 
 m: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) numbers、$(HOW_MUCH) times ね?, $(CLS), );
 	@total=0; \
 	for i in $$(seq 1 $(HOW_MUCH)); do \
 		ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
-		count=$$(./$(NAME) $$ARGS | wc -l); \
-		echo "test $$i: $$count moves"; \
+		output=$$(./$(NAME) $$ARGS); \
+		return_code=$$?; \
+		count=$$(echo "$$output" | wc -l); \
+		echo "test $$i: $$count moves, OK? $$return_code"; \
 		total=$$((total + count)); \
 	done; \
 	average=$$((total / $(HOW_MUCH))); \

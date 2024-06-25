@@ -35,7 +35,7 @@ void    print(t_data *data, int sw, int bit)
 //  [ - , - , 1] = clear
 //  [ - , 1, - ] = print data
 //  [ 1, - , - ] = print header
-//  if sw: num_index
+//  if sw: num_i
 void    print_header(t_data *data, int bit, int sw)
 {
 	if ((bit & 1) == 1)
@@ -67,17 +67,17 @@ void	print_stack(t_data *data, t_num *s, char sw)
 	while (s && ++i < s->size_s)
 	{
 		// put("(->%d:%d)\n", i, s->size_s);
-		// if (s->num_index == s->above->num_index - 1 || s->num_index == s->below->num_index + 1)
+		// if (s->num_i == s->above->num_i - 1 || s->num_i == s->below->num_i + 1)
 		if ((s->target == s->above && s->pile_c == 'A') || (s->target == s->below && s->pile_c == 'B'))
 			put(BLUE);
 		else if ((s->target == s->below && s->pile_c == 'A') || (s->target == s->above && s->pile_c == 'B'))
 			put(RED);
 		else
 			put(RESET);
-		if (s->num_index == 0 || s->num_index == data->full_size - 1)
+		if (s->num_i == 0 || s->num_i == data->full_size - 1)
 			put(PURPLE);
 		if(sw)
-			put("\033[4m""% 3d", s->num_index);
+			put("\033[4m""% 3d", s->num_i);
 		else
 			put("\033[4m""% 3d", s->num);
 		s = *((t_num **)s + (s->pile_c == 'A'));
@@ -88,13 +88,13 @@ void	print_stack(t_data *data, t_num *s, char sw)
 ///////////////////////////////////////////////////////////////////////////////]
 void	print_stru_algo(t_algo *a)
 {
-	put("N_blk  (%d => %d): position= %c.%d (distance= %d)\n", a->blk_num->num, a->blk_num->num_index, a->blk_num->pile_c, a->blk_num->position, a->blk_num->dist);
+	put("N_blk  (%d => %d): position= %c.%d (distance= %d)\n", a->blk_num->num, a->blk_num->num_i, a->blk_num->pile_c, a->blk_num->position, a->blk_num->dist);
 	put("\tsize block = %d;\n", a->sizeb_n);
-	put("NUM   (%d => %d): position= %c.%d (distance= %d)\n", a->num->num, a->num->num_index, a->num->pile_c, a->num->position, a->num->dist);
+	put("NUM   (%d => %d): position= %c.%d (distance= %d)\n", a->num->num, a->num->num_i, a->num->pile_c, a->num->position, a->num->dist);
 	put("\nNum_dist_target = %d; num_d_tar_plus =  %d; bt_dist_bn = %d\n", a->num_dist_target, a->num_d_tar_plus, a->bt_dist_bn);
 
-	put("\nTARGET (%d => %d): position= %c.%d (distance= %d)\n", a->target->num, a->target->num_index, a->target->pile_c, a->target->position, a->target->dist);
+	put("\nTARGET (%d => %d): position= %c.%d (distance= %d)\n", a->target->num, a->target->num_i, a->target->pile_c, a->target->position, a->target->dist);
 	put("\tsize block = %d;\n", a->sizeb_t);
-	put("T_blk  (%d => %d): position= %c.%d (distance= %d)\n", a->blk_tar->num, a->blk_tar->num_index, a->blk_tar->pile_c, a->blk_tar->position, a->blk_tar->dist);
+	put("T_blk  (%d => %d): position= %c.%d (distance= %d)\n", a->blk_tar->num, a->blk_tar->num_i, a->blk_tar->pile_c, a->blk_tar->position, a->blk_tar->dist);
 	put("\tSTRING = %s;\n", a->num->algo);
 }

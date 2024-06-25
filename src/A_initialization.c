@@ -52,7 +52,6 @@ static t_num	*create_stack_a(int ac, char **av, t_data *data, int j)
 	while (++i < ac)
 	{
 		a_end = create_new_node(a_end, av[i - j], data);
-		ft_break(10000 * i + a_end->num, "in create_stack_a loop", 2, a_end);
 		if (i == 1)
 			data->top_a = a_end;
 	}
@@ -60,7 +59,6 @@ static t_num	*create_stack_a(int ac, char **av, t_data *data, int j)
 	assign_target(data);
 	data->top_a->above = a_end;
 	a_end->below = data->top_a;
-	ft_break(data->top_a->num, "after finishing A: adrss of top of a", 2, data->top_a);
 	return (data->top_a);
 }
 
@@ -108,10 +106,10 @@ static void	assign_value(t_data *data)
 			if (ptr_i != ptr_k && ptr_i->num == ptr_k->num)
 				end(data, MSG_DUPLICATE, 0);
 			if (ptr_i->num > ptr_k->num)
-				ptr_i->num_index++;
+				ptr_i->num_i++;
 			ptr_k = ptr_k->below;
 		}
-		if (!ptr_i->num_index)
+		if (!ptr_i->num_i)
 			data->zero = ptr_i;
 		ptr_i = ptr_i->below;
 	}
@@ -127,11 +125,11 @@ static void	assign_target(t_data *data)
 	ptr_i = data->top_a;
 	while (ptr_i)
 	{
-		target = (ptr_i->num_index + 1) % data->full_size;
+		target = (ptr_i->num_i + 1) % data->full_size;
 		ptr_k = data->top_a;
 		while (ptr_k)
 		{
-			if (ptr_k->num_index == target)
+			if (ptr_k->num_i == target)
 			{
 				ptr_i->target = ptr_k;
 				ptr_k->hunter = ptr_i;

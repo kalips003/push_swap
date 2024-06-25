@@ -67,15 +67,12 @@ void	free_algos(t_data *data)
 
 	i = -1;
 	cursor = data->top_a;
-	ft_break(-1, "in free", 2, data->top_a);
 	while (++i < data->full_size)
 	{
-		ft_break(10 * i + 1, "in free loop", 2, data->top_a);
 		if (i == data->size_a)
 			cursor = data->top_b;
 		if (!cursor)
 			break ;
-		ft_break(10 * i + 2, "in free loop", 2, data->top_a);
 		cursor->algo = free_s(cursor->algo);
 		cursor = cursor->below;
 	}
@@ -109,15 +106,15 @@ int	final_test(t_data *s)
 
 	if (s->size_b || s->size_a != s->full_size)
 		return(0);
-	if (s->top_a->num_index || s->top_a->above->num_index != s->full_size - 1)
+	if (s->top_a->num_i || s->top_a->above->num_i != s->full_size - 1)
 		return(0);
 	temp = s->top_a;
 	i = -1;
 	while (++i < s->full_size)
 	{
-		if (temp->num_index != i)
+		if (temp->num_i != i)
 			return (0);
 		temp = temp->below;
 	}
-	return (i);
+	return (!!(i));
 }

@@ -12,16 +12,16 @@
 
 #include "push_swap.h"
 
-t_num	*assign_str_all(t_data *data);
-int		assign_str(t_data *s, t_num *num);
-void	fill_stru_algo(t_data *data, t_algo *a, t_num *num);
-static void	helper_block_size(t_data *data, t_algo *a);
+t_num	*assign_str_all(t_data *data, int (*best_str_algo)(t_data*, t_num*));
+void	helper_block_size(t_data *data, t_algo *a);
 char	*smallest_str(int nb, ...);
 int		is_in_order(t_data *s, t_num *previous, t_num *next);
 
 ///////////////////////////////////////////////////////////////////////////////]
 // (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
-t_num	*assign_str_all(t_data *data)
+//		give str to all nuber based on best_str_algo0
+// 		return the number with smallest string
+t_num	*assign_str_all(t_data *data, int (*best_str_algo)(t_data*, t_num*))
 {
 	int		i;
 	int		smaller = 0;
@@ -29,7 +29,6 @@ t_num	*assign_str_all(t_data *data)
 	t_num	*small;
 
 	small = NULL;
-	ft_break(data->top_a->num, "just entering assign_str_all: adrss of top of a", 2, data->top_a);
 	free_algos(data);
 	give_position(data);
 	i = -1;
@@ -38,7 +37,7 @@ t_num	*assign_str_all(t_data *data)
 	{
 		if (i == data->size_a)
 			temp = data->top_b;
-		temp->algo_sz = assign_str(data, temp);
+		temp->algo_sz = best_str_algo(data, temp);
 		if (temp->algo_sz && (smaller == 0 || temp->algo_sz < smaller))
 		{
 			smaller = temp->algo_sz;
@@ -49,60 +48,10 @@ t_num	*assign_str_all(t_data *data)
 	return (small);
 }
 
-///////////////////////////////////////////////////////////////////////////////]
-//		give best string to 1 number
-//		return the len of the best string
-int	assign_str(t_data *s, t_num *num)
-{
-	t_algo a;
-
-	fill_stru_algo(s, &a, num);
-	int bit = (a.num->pile_c == 'A') << 1 | (a.target->pile_c == 'A');
-	// if  (num->dist == 1 && a.sizeb_n == -1) -> 'sa'
-	if (a.num_dist_target == 1 || a.num_dist_target == -1)
-		return (0);
-	if (is_in_order(s, num, *((t_num **)(num) + (num->pile_c == 'A'))) == -1)
-		return (0);
-	if (bit == 0)// num top stack, swap !! 7-10-8-11 > 10-7-8-11
-		return(algo_bb(&a));
-	else if (bit == 1)
-		return(algo_ba(&a));
-	else if (bit == 2)
-		return(algo_ab(&a));
-	else
-		return(algo_aa(&a));
-	return (0);
-}
-
-///////////////////////////////////////////////////////////////////////////////]
-//  #	initialize algori struct
-void	fill_stru_algo(t_data *data, t_algo *a, t_num *num)
-{
-	ft_memset(a, 0, sizeof(t_algo));
-	a->num = num;
-	a->target = num->target;
-//  blocks handling
-	helper_block_size(data, a);
-//  num_dist_target
-	if ((num->position >> 31) == (a->target->position >> 31))
-	{
-		a->num_dist_target = -1;
-		t_num *temp = num;
-		while (++(a->num_dist_target) < num->size_s && temp != a->target)
-			temp = *((t_num **)(temp) + (temp->pile_c == 'A'));
-		a->num_d_tar_plus = a->num_dist_target;
-		if (a->num_dist_target > num->size_s / 2)
-			a->num_dist_target -= num->size_s;
-		a->bt_dist_bn = -1;
-		temp = a->blk_tar;
-		while (++(a->bt_dist_bn) < num->size_s && temp != a->blk_num)
-			temp = *((t_num **)(temp) + (temp->pile_c == 'A'));
-	}
-}
 
 //  #   SET: blk_num _ sizeb_n  __ blk_tar _ sizeb_t
 // pb with B:[21-22] > a->sizeb_n == 0,1,0,1,0,1...
-static void	helper_block_size(t_data *data, t_algo *a)
+void	helper_block_size(t_data *data, t_algo *a)
 {
 	a->blk_num = a->num;
 	while (++a->sizeb_n < a->blk_num->size_s && is_in_order(data, *((t_num **)(a->blk_num) + (a->blk_num->pile_c == 'B')), a->blk_num))
@@ -157,7 +106,7 @@ int	is_in_order(t_data *s, t_num *previous, t_num *next)
 {
 	int	size;
 
-	size = next->num_index - previous->num_index;
+	size = next->num_i - previous->num_i;
 	if (size == 1 || size == -s->full_size + 1)
 		return (1);
 	else if (size == -1 || size == s->full_size - 1)
