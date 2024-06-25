@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:08:35 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 21:48:29 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/25 22:22:44 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	algo_2(t_data *data, int sw)
 	t_num	*small;
 	int		size;
 
-	char *first_string = str("%.*c", data->full_size - 2, '0');
+	char *first_string = str("%.*c", data->size_a - 2, '0');
 	size = exec_string(data, first_string, sw);
 	free_s(first_string);
 
