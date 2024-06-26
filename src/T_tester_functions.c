@@ -31,7 +31,7 @@ void	function1(t_data *data, int i, int sw)
 		i = abs(i) - 1;
 	}
 	else
-		small = assign_str_all_v2(data, ft_algo_2);
+		small = assign_str_b(data, ft_algo_2);
 	if (!small)
 		return ((void)put("Nothing to be done\n"));
 	while (--i >= 0)
@@ -85,7 +85,7 @@ void	function2(t_data *data, int i, int sw)
 	
 // 	put("\n\t[F3] \e[4mPrint the best string for all numbers"RESET"\n\n");
 // 	// put("\n\t[F3] \e[4mPrint block data for all numbers"RESET"\n\n");
-// 	small = assign_str_all_v2(data, ft_algo_2);
+// 	small = assign_str_b(data, ft_algo_2);
 // 	// put("---------->%p\n", small);
 // 	if (small)
 // 		put("Smallest string[%d] (%c %d): %s\n\n", small->position, small->pile_c, small->num_i, small->algo);

@@ -6,16 +6,17 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:08:35 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 19:05:10 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 12:59:47 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 int		algo_1(t_data *data, int sw);
+t_num	*assign_str_all(t_data *data, int (*best_str_algo)(t_data*, t_num*));
 int		ft_algo_1(t_data *s, t_num *num);
 void	helper_1(t_data *data, t_algo *a, t_num *num);
-static char	*sublim(t_data *data);
+void	helper_block_size(t_data *data, t_algo *a);;
 
 ///////////////////////////////////////////////////////////////////////////////]
 // simplest algo
@@ -40,6 +41,37 @@ int	algo_1(t_data *data, int sw)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
+//		give str to all nuber based on best_str_algo0
+// 		return the number with smallest string
+t_num	*assign_str_all(t_data *data, int (*best_str_algo)(t_data*, t_num*))
+{
+	int		i;
+	int		smaller = 0;
+	t_num	*temp;
+	t_num	*small;
+
+	small = NULL;
+	free_algos(data);
+	give_position(data);
+	i = -1;
+	temp = data->top_a;
+	while (++i < data->full_size)
+	{
+		if (i == data->size_a)
+			temp = data->top_b;
+		temp->algo_sz = best_str_algo(data, temp);
+		if (temp->algo_sz && (smaller == 0 || temp->algo_sz < smaller))
+		{
+			smaller = temp->algo_sz;
+			small = temp;
+		}
+		temp = temp->below;
+	}
+	return (small);
+}
+
+///////////////////////////////////////////////////////////////////////////////]
 //		give best string to 1 number
 //		return the len of the best string
 int	ft_algo_1(t_data *s, t_num *num)
@@ -48,12 +80,11 @@ int	ft_algo_1(t_data *s, t_num *num)
 
 	helper_1(s, &a, num);
 	int bit = (a.num->pile_c == 'A') << 1 | (a.target->pile_c == 'A');
-	// if  (num->dist == 1 && a.sizeb_n == -1) -> 'sa'
 	if (a.num_dist_target == 1 || a.num_dist_target == -1)
 		return (0);
 	if (is_in_order(s, num, *((t_num **)(num) + (num->pile_c == 'A'))) == -1)
 		return (0);
-	if (bit == 0)// num top stack, swap !! 7-10-8-11 > 10-7-8-11
+	if (bit == 0)
 		return(algo_bb(&a));
 	else if (bit == 1)
 		return(algo_ba(&a));
@@ -91,22 +122,21 @@ void	helper_1(t_data *data, t_algo *a, t_num *num)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-static char	*sublim(t_data *data)
+//  #   SET: blk_num _ sizeb_n  __ blk_tar _ sizeb_t
+// pb with B:[21-22] > a->sizeb_n == 0,1,0,1,0,1...
+void	helper_block_size(t_data *data, t_algo *a)
 {
-	t_num	*zero;
-
-	zero = data->zero;
-	give_position(data);
-	if (zero->pile_c == 'B' && zero->above->num_i == 1)
-		return (str("%.*c%.*c", abs(zero->dist + 1), '6' + 3 * (zero->dist < 0),
-				data->full_size, '1'));
-	if (zero->pile_c == 'B' && zero->below->num_i == 1)
-		return (str("%.*c%*s", abs(zero->dist), '6' + 3 * (zero->dist < 0),
-				data->full_size, "91"));
-	if (zero->pile_c == 'A' && zero->above->num_i == 1)
-		return (str("%*s%.*c%.*c", data->full_size, "80", abs(zero->dist + 1),
-				'6' + 3 * (zero->dist < 0), data->full_size, '1'));
-	if (zero->pile_c == 'A' && zero->below->num_i == 1)
-		return (str("%.*c", abs(zero->dist), '5' + 3 * (zero->dist < 0)));
-	return (NULL);
+	a->blk_num = a->num;
+	while (++a->sizeb_n < a->blk_num->size_s && is_in_order(data, *((t_num **)(a->blk_num) + (a->blk_num->pile_c == 'B')), a->blk_num))
+		a->blk_num = *((t_num **)(a->blk_num) + (a->blk_num->pile_c == 'B'));
+	a->blk_tar = a->target;
+	while (++a->sizeb_t < a->blk_tar->size_s && is_in_order(data, a->blk_tar, *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'A'))) == 1)
+		a->blk_tar = *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'A'));
+	if (is_in_order(data, *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'B')), a->blk_tar) == -1)
+	{
+		a->sizeb_t = 0;
+		while (++a->sizeb_t < a->blk_tar->size_s && is_in_order(data, *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'B')), a->blk_tar) == -1)
+			a->blk_tar = *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'B'));
+		a->sizeb_t *= -1;
+	}
 }

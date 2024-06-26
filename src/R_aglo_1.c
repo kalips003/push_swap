@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:17:41 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/26 12:24:47 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 12:52:06 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	helper_block_size(t_data *data, t_algo *a)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-// (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
 int algo_aa(t_algo *a)
 {
 	if (a->sizeb_t > 0)

@@ -13,59 +13,37 @@
 #include "push_swap.h"
 
 t_num	*assign_str_all(t_data *data, int (*best_str_algo)(t_data*, t_num*));
-void	helper_block_size(t_data *data, t_algo *a);
+
+char	*sublim(t_data *data);
 char	*smallest_str(int nb, ...);
 int		is_in_order(t_data *s, t_num *previous, t_num *next);
 
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////]
-// (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
-//		give str to all nuber based on best_str_algo0
-// 		return the number with smallest string
-t_num	*assign_str_all(t_data *data, int (*best_str_algo)(t_data*, t_num*))
+// once everything is in order, puts index 0 on top of A
+char	*sublim(t_data *data)
 {
-	int		i;
-	int		smaller = 0;
-	t_num	*temp;
-	t_num	*small;
+	t_num	*zero;
 
-	small = NULL;
-	free_algos(data);
+	zero = data->zero;
 	give_position(data);
-	i = -1;
-	temp = data->top_a;
-	while (++i < data->full_size)
-	{
-		if (i == data->size_a)
-			temp = data->top_b;
-		temp->algo_sz = best_str_algo(data, temp);
-		if (temp->algo_sz && (smaller == 0 || temp->algo_sz < smaller))
-		{
-			smaller = temp->algo_sz;
-			small = temp;
-		}
-		temp = temp->below;
-	}
-	return (small);
-}
-
-
-//  #   SET: blk_num _ sizeb_n  __ blk_tar _ sizeb_t
-// pb with B:[21-22] > a->sizeb_n == 0,1,0,1,0,1...
-void	helper_block_size(t_data *data, t_algo *a)
-{
-	a->blk_num = a->num;
-	while (++a->sizeb_n < a->blk_num->size_s && is_in_order(data, *((t_num **)(a->blk_num) + (a->blk_num->pile_c == 'B')), a->blk_num))
-		a->blk_num = *((t_num **)(a->blk_num) + (a->blk_num->pile_c == 'B'));
-	a->blk_tar = a->target;
-	while (++a->sizeb_t < a->blk_tar->size_s && is_in_order(data, a->blk_tar, *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'A'))) == 1)
-		a->blk_tar = *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'A'));
-	if (is_in_order(data, *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'B')), a->blk_tar) == -1)
-	{
-		a->sizeb_t = 0;
-		while (++a->sizeb_t < a->blk_tar->size_s && is_in_order(data, *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'B')), a->blk_tar) == -1)
-			a->blk_tar = *((t_num **)(a->blk_tar) + (a->blk_tar->pile_c == 'B'));
-		a->sizeb_t *= -1;
-	}
+	if (zero->pile_c == 'B' && zero->above->num_i == 1)
+		return (str("%.*c%.*c", abs(zero->dist + 1), '6' + 3 * (zero->dist < 0),
+				data->full_size, '1'));
+	if (zero->pile_c == 'B' && zero->below->num_i == 1)
+		return (str("%.*c%*s", abs(zero->dist), '6' + 3 * (zero->dist < 0),
+				data->full_size, "91"));
+	if (zero->pile_c == 'A' && zero->above->num_i == 1)
+		return (str("%*s%.*c%.*c", data->full_size, "80", abs(zero->dist + 1),
+				'6' + 3 * (zero->dist < 0), data->full_size, '1'));
+	if (zero->pile_c == 'A' && zero->below->num_i == 1)
+		return (str("%.*c", abs(zero->dist), '5' + 3 * (zero->dist < 0)));
+	return (NULL);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]

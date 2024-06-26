@@ -13,67 +13,67 @@
 #include "push_swap.h"
 
 void		give_position(t_data *s);
-void		reevalue(t_data *s, t_num *num);
+// void		reevalue(t_data *s, t_num *num);
 static void	helper_962(t_num *current);
 static void	helper_give_posi(t_data *s, t_num *current, char a, int i);
 
 ///////////////////////////////////////////////////////////////////////////////]
 // 
 static void	helper_give_blk(t_data *s, t_num *num);
-static void	helper_give_blk(t_data *s, t_num *num)
-{
-	t_num	*ptr;
-	int		i;
+// static void	helper_give_blk(t_data *s, t_num *num)
+// {
+// 	t_num	*ptr;
+// 	int		i;
 
-	ptr = num;
-	i = 0;
-	while (--i > -num->size_s && ptr->target == ptr->above)
-		ptr = ptr->above;
-	if (i == -1 && i++)
-	{
-		ptr = num;
-		while (++i < num->size_s && ptr->target == ptr->below)
-			ptr = ptr->below;
-	}
-	// size blk toward target
-	num->size_blk = i;
-	if (i != 1)
-		num->size_blk *= -1 + 2 * (num->pile_c == 'A');
-	num->blk_end = ptr;
-	// put("--->%d", num->size_blk);
+// 	ptr = num;
+// 	i = 0;
+// 	while (--i > -num->size_s && ptr->target == ptr->above)
+// 		ptr = ptr->above;
+// 	if (i == -1 && i++)
+// 	{
+// 		ptr = num;
+// 		while (++i < num->size_s && ptr->target == ptr->below)
+// 			ptr = ptr->below;
+// 	}
+// 	// size blk toward target
+// 	num->size_blk = i;
+// 	if (i != 1)
+// 		num->size_blk *= -1 + 2 * (num->pile_c == 'A');
+// 	num->blk_end = ptr;
+// 	// put("--->%d", num->size_blk);
 
-	ptr = num;
-	i = 0;
-	while (--i > -num->size_s && ptr->hunter == ptr->below)
-			ptr = ptr->below;
-	if (i == -1 && i++)
-	{
-		ptr = num;
-		while (++i < num->size_s && ptr->hunter == ptr->above)
-			ptr = ptr->above;
-	}
-	// size blk toward hunter
-	if (i != 1)
-		num->size_blk += i * (-1 + 2 * (num->pile_c == 'A'));
-	num->blk_start = ptr;
-}
+// 	ptr = num;
+// 	i = 0;
+// 	while (--i > -num->size_s && ptr->hunter == ptr->below)
+// 			ptr = ptr->below;
+// 	if (i == -1 && i++)
+// 	{
+// 		ptr = num;
+// 		while (++i < num->size_s && ptr->hunter == ptr->above)
+// 			ptr = ptr->above;
+// 	}
+// 	// size blk toward hunter
+// 	if (i != 1)
+// 		num->size_blk += i * (-1 + 2 * (num->pile_c == 'A'));
+// 	num->blk_start = ptr;
+// }
 
-void	helper_give_blk_wrapper(t_data *s);
-void	helper_give_blk_wrapper(t_data *s)
-{
-	int		i;
-	t_num	*ptr;
+// void	helper_give_blk_wrapper(t_data *s);
+// void	helper_give_blk_wrapper(t_data *s)
+// {
+// 	int		i;
+// 	t_num	*ptr;
 
-	i = -1;
-	ptr = s->top_a;
-	while (++i < s->full_size)
-	{
-		if (i == s->size_a)
-			ptr = s->top_b;
-		helper_give_blk(s, ptr);
-		ptr = ptr->below;
-	}
-}
+// 	i = -1;
+// 	ptr = s->top_a;
+// 	while (++i < s->full_size)
+// 	{
+// 		if (i == s->size_a)
+// 			ptr = s->top_b;
+// 		helper_give_blk(s, ptr);
+// 		ptr = ptr->below;
+// 	}
+// }
 ///////////////////////////////////////////////////////////////////////////////]
 //  #  give each member of A & B its position
 // 		[0 size of A] [-1 -size of B] [dist from origin]
@@ -96,33 +96,33 @@ void	give_position(t_data *s)
 		helper_give_posi(s, current, 'B', i);
 		current = current->below;
 	}
-	helper_give_blk_wrapper(s);
+	// helper_give_blk_wrapper(s);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
 // reassignn value and char to num
-void	reevalue(t_data *s, t_num *num)
-{
-	int		i;
-	t_num	*current;
+// void	reevalue(t_data *s, t_num *num)
+// {
+// 	int		i;
+// 	t_num	*current;
 
-	i = -1;
-	current = s->top_a->above;
-	while (++i < s->size_a && current)
-	{
-		if (current == num)
-			return (helper_give_posi(s, current, 'A', i));
-		current = current->below;
-	}
-	i = -1;
-	current = s->top_b->above;
-	while (++i < s->size_b && current)
-	{
-		if (current == num)
-			return (helper_give_posi(s, current, 'B', i));
-		current = current->below;
-	}
-}
+// 	i = -1;
+// 	current = s->top_a->above;
+// 	while (++i < s->size_a && current)
+// 	{
+// 		if (current == num)
+// 			return (helper_give_posi(s, current, 'A', i));
+// 		current = current->below;
+// 	}
+// 	i = -1;
+// 	current = s->top_b->above;
+// 	while (++i < s->size_b && current)
+// 	{
+// 		if (current == num)
+// 			return (helper_give_posi(s, current, 'B', i));
+// 		current = current->below;
+// 	}
+// }
 
 ///////////////////////////////////////////////////////////////////////////////]
 //  #  give one member of A & B its position

@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/25 20:30:54 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 12:44:45 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	helper_1(t_data *data, t_algo *a, t_num *num);
 int		algo_2(t_data *data, int sw);
 int		ft_algo_2(t_data *s, t_num *num);
 void	helper_2(t_data *data, t_algo *a, t_num *num);
-t_num	*assign_str_all_v2(t_data *data, int (*best_str_algo)(t_data*, t_num*));
+t_num	*assign_str_b(t_data *data, int (*best_str_algo)(t_data*, t_num*));
 int algo_ba_2(t_algo *a);
 //	Q - ALGO
 int		algo_aa(t_algo *a);
@@ -138,6 +138,7 @@ void	lets_rrr(t_algo *a, t_num *one, t_num *two, int bit);
 //	Q - ALGO TOOLS
 t_num	*assign_str_all(t_data *data, int (*best_str_algo)(t_data*, t_num*));
 void	helper_block_size(t_data *data, t_algo *a);
+char	*sublim(t_data *data);
 char	*smallest_str(int nb, ...);
 int		is_in_order(t_data *s, t_num *previous, t_num *next);
 ///////////////////////////////////////////////////////////////////////////////]

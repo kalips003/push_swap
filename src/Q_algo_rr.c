@@ -17,7 +17,7 @@ static char	*lets_rr(char *s1, char *s2);
 static void	lets_r(char *c1, char *c2);
 
 ///////////////////////////////////////////////////////////////////////////////]
-// (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
 //  bit 0b10 = one on -1
 //  bit 0b00 = one on 0
 //  bit 0b01 = one on -1

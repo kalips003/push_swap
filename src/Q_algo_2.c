@@ -6,19 +6,17 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:08:35 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 22:22:44 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 12:52:10 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		algo_2(t_data *data, int sw);
-int		ft_algo_2(t_data *s, t_num *num);
-void	helper_2(t_data *data, t_algo *a, t_num *num);
+int				algo_2(t_data *data, int sw);
+t_num			*assign_str_b(t_data *data, int (*best_str_algo)(t_data*, t_num*));
+int				ft_algo_2(t_data *s, t_num *num);
+int				algo_ba_2(t_algo *a);
 static t_num	*find_target(t_data *data, t_num *num);
-static char	*sublim(t_data *data);
-t_num	*assign_str_all_v2(t_data *data, int (*best_str_algo)(t_data*, t_num*));
-int algo_ba_2(t_algo *a);
 
 ///////////////////////////////////////////////////////////////////////////////]
 // push all but 2, then put bacck where it should be
@@ -31,11 +29,11 @@ int	algo_2(t_data *data, int sw)
 	size = exec_string(data, first_string, sw);
 	free_s(first_string);
 
-	small = assign_str_all_v2(data, ft_algo_2);
+	small = assign_str_b(data, ft_algo_2);
 	while (small && small->algo)
 	{
 		size += exec_string(data, small->algo, sw);
-		small = assign_str_all_v2(data, ft_algo_2);
+		small = assign_str_b(data, ft_algo_2);
 	}
 
 	char	*last;
@@ -46,7 +44,7 @@ int	algo_2(t_data *data, int sw)
 	return (size);
 }
 
-t_num	*assign_str_all_v2(t_data *data, int (*best_str_algo)(t_data*, t_num*))
+t_num	*assign_str_b(t_data *data, int (*best_str_algo)(t_data*, t_num*))
 {
 	int		i;
 	int		smaller = 0;
@@ -74,38 +72,29 @@ t_num	*assign_str_all_v2(t_data *data, int (*best_str_algo)(t_data*, t_num*))
 ///////////////////////////////////////////////////////////////////////////////]
 //		give best string to 1 number
 //		return the len of the best string
-int	ft_algo_2(t_data *s, t_num *num)
+// 		the big if is to find the dist between hunter target
+int	ft_algo_2(t_data *data, t_num *num)
 {
 	t_algo a;
 
-	helper_2(s, &a, num);
-	return(algo_ba_2(&a));
-}
-
-///////////////////////////////////////////////////////////////////////////////]
-//  #	initialize algori struct with num data
-void	helper_2(t_data *data, t_algo *a, t_num *num)
-{
-	ft_memset(a, 0, sizeof(t_algo));
-	a->num = num;
-	a->target = find_target(data, num);
-//  blocks handling
-	helper_block_size(data, a);
-//  num_dist_target
-	if ((num->position >> 31) == (a->target->position >> 31))
+	ft_memset(&a, 0, sizeof(t_algo));
+	a.num = num;
+	a.target = find_target(data, num);
+	if ((num->position >> 31) == (a.target->position >> 31))
 	{
-		a->num_dist_target = -1;
+		a.num_dist_target = -1;
 		t_num *temp = num;
-		while (++(a->num_dist_target) < num->size_s && temp != a->target)
+		while (++(a.num_dist_target) < num->size_s && temp != a.target)
 			temp = *((t_num **)(temp) + (temp->pile_c == 'A'));
-		a->num_d_tar_plus = a->num_dist_target;
-		if (a->num_dist_target > num->size_s / 2)
-			a->num_dist_target -= num->size_s;
-		a->bt_dist_bn = -1;
-		temp = a->blk_tar;
-		while (++(a->bt_dist_bn) < num->size_s && temp != a->blk_num)
+		a.num_d_tar_plus = a.num_dist_target;
+		if (a.num_dist_target > num->size_s / 2)
+			a.num_dist_target -= num->size_s;
+		a.bt_dist_bn = -1;
+		temp = a.blk_tar;
+		while (++(a.bt_dist_bn) < num->size_s && temp != a.blk_num)
 			temp = *((t_num **)(temp) + (temp->pile_c == 'A'));
 	}
+	return(algo_ba_2(&a));
 }
 
 static t_num	*find_target(t_data *data, t_num *num)
@@ -123,29 +112,7 @@ static t_num	*find_target(t_data *data, t_num *num)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-static char	*sublim(t_data *data)
-{
-	t_num	*zero;
-
-	zero = data->zero;
-	give_position(data);
-	if (zero->pile_c == 'B' && zero->above->num_i == 1)
-		return (str("%.*c%.*c", abs(zero->dist + 1), '6' + 3 * (zero->dist < 0),
-				data->full_size, '1'));
-	if (zero->pile_c == 'B' && zero->below->num_i == 1)
-		return (str("%.*c%*s", abs(zero->dist), '6' + 3 * (zero->dist < 0),
-				data->full_size, "91"));
-	if (zero->pile_c == 'A' && zero->above->num_i == 1)
-		return (str("%*s%.*c%.*c", data->full_size, "80", abs(zero->dist + 1),
-				'6' + 3 * (zero->dist < 0), data->full_size, '1'));
-	if (zero->pile_c == 'A' && zero->below->num_i == 1)
-		return (str("%.*c", abs(zero->dist), '5' + 3 * (zero->dist < 0)));
-	return (NULL);
-}
-
-
-///////////////////////////////////////////////////////////////////////////////]
-// (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
 int algo_ba_2(t_algo *a)
 {
 	// str1 set

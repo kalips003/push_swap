@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 00:17:38 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 02:05:42 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/26 12:52:06 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	algo_ab(t_algo *a);
 int	algo_ba(t_algo *a);
 
 ///////////////////////////////////////////////////////////////////////////////]
-// (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
 int algo_aa(t_algo *a)
 {
 	if (a->sizeb_t > 0)
@@ -58,7 +58,7 @@ int algo_aa(t_algo *a)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-// (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
 int algo_bb(t_algo *a)
 {
 	if (a->sizeb_t > 0)
@@ -98,7 +98,7 @@ int algo_bb(t_algo *a)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-// (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
 int algo_ab(t_algo *a)
 //		OK!
 {
@@ -133,7 +133,7 @@ int algo_ab(t_algo *a)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-// (0) pb  (1) pa  (2) sa  (3) sb  (4) ss  (5) ra  (6) rb  (7) rr  (8) rra  (9) rrb (:) rrr
+// (0 pb)(1 pa)(2 sa)(3 sb)(4 ss)(5 ra)(6 rb)(7 rr)(8 rra)(9 rrb)(: rrr)
 int algo_ba(t_algo *a)
 //		OK!
 {
