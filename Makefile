@@ -19,9 +19,9 @@ ARGS5 = -648 -249 -651 -970 -581 -19 482 -116 76 910 -388 -41 631 -49 696 973 -5
 
 MIN = -999
 MAX = 999
-HOW_MANY = 500
+HOW_MANY = 5
 HOW_MANY2 = 25
-HOW_MUCH = 10
+HOW_MUCH = 25
 
 # args fixed
 a: libft $(NAME) inc/push_swap.h
@@ -55,7 +55,7 @@ w: libft $(NAME_BONUS) inc/push_swap.h
 	-$(VALGRIND) ./$(word 2, $^) $(ARGS2)
 
 m: libft $(NAME) inc/push_swap.h
-	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) numbers、$(HOW_MUCH) times ね?, $(CLS), );
+	@$(call random_shmol_cat, "\'tis push shwap tesshter、0 is OK、1 is KO", $(HOW_MANY) numbers、$(HOW_MUCH) times ね?, $(CLS), );
 	@total=0; \
 	for i in $$(seq 1 $(HOW_MUCH)); do \
 		ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \

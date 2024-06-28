@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/28 14:42:59 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:49:24 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,16 +210,16 @@ char	*reverse_str(char *cmd)
 # define RRR "\033[38;5;153mrrr\e[0m"
 
 # define MSG_TOOBIG "\033[0;31merror\033[0;32m - yeah, about that.. \
-	THAT wont fit, sorry.\n\e[0m"
-# define MSG_NOTNUM "\033[0;31merror\033[0;32m - yeahhh.. that's not \
-	a number.\n\e[0m"
+THAT wont fit, sorry.\n\e[0m"
+# define MSG_NOTNUM "\033[0;31merror\033[0;32m - yeahhh.. that's not\
+ a number.\n\e[0m"
 # define MSG_DUPLICATE "\033[0;31merror\033[0;32m - DUPLICATE NUMBERS\n\e[0m"
 # define MSG_BADCMD "\033[0;31merror\033[0;32m - That' aint no command \
-	i know of, boss..\n\e[0m"
+i know of, boss..\n\e[0m"
 # define MSG_NONUM "\033[0;31merror\033[0;32m - KRONK ! You forgot the \
-	numbers...\n> \e[0m"
+numbers...\n> \e[0m"
 # define MSG_RANDOM_SEQ "\e[7mseq 25 99 | shuf -n 25 | tr '\\n' ' ' | \
-	sed -r 's/.$//'\e[0m\n"
+sed -r 's/.$//'\e[0m\n"
 
 # define UNDER_B "\033[48;5;4m\e[0m"
 # define UNDER_R "\033[48;5;1m\e[0m"
