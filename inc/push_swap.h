@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agallon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 13:16:57 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/28 14:49:24 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/28 19:33:23 by agallon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_stacks
 //		CONTAINER FOR 1 NUMBER
 typedef struct s_entry
 {
-	//  const?
 	struct s_entry		*up;
 	struct s_entry		*down;
 
@@ -47,13 +46,13 @@ typedef struct s_entry
 
 	int					num;
 	int					num_i;
-	//	size of current stack
+
 	int					size_s;
-	//	A or B
+
 	char				ab;
-	// (A2)> 2; (B5)> -6
+
 	int					position;
-	// (1/15) > 0; (14/15) > -2
+
 	int					dist;
 	int					dist_p;
 	int					dist_n;
@@ -218,23 +217,18 @@ THAT wont fit, sorry.\n\e[0m"
 i know of, boss..\n\e[0m"
 # define MSG_NONUM "\033[0;31merror\033[0;32m - KRONK ! You forgot the \
 numbers...\n> \e[0m"
-# define MSG_RANDOM_SEQ "\e[7mseq 25 99 | shuf -n 25 | tr '\\n' ' ' | \
-sed -r 's/.$//'\e[0m\n"
 
 # define UNDER_B "\033[48;5;4m\e[0m"
 # define UNDER_R "\033[48;5;1m\e[0m"
 
-# define MSG_KO \
-	"\e[5m\033[38;5;147m\n\
+# define MSG_KO "\e[5m\033[38;5;147m\n\
 \t██╗░░██╗░█████╗░░░░░░░░░░\n\
 \t██║░██╔╝██╔══██╗░░░░░░░░░\n\
 \t█████═╝░██║░░██║░░░░░░░░░\n\
 \t██╔═██╗░██║░░██║░░░░░░░░░\n\
 \t██║░╚██╗╚█████╔╝██╗██╗██╗\n\
 \t╚═╝░░╚═╝░╚════╝░╚═╝╚═╝╚═╝\e[0m\n"
-
-# define MSG_OK \
-	"\e[5m\033[38;5;77m\n\
+# define MSG_OK "\e[5m\033[38;5;77m\n\
 \t░█████╗░██╗░░██╗  ██╗\n\
 \t██╔══██╗██║░██╔╝  ██║\n\
 \t██║░░██║█████═╝░  ██║\n\

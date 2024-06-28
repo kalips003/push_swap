@@ -3,6 +3,7 @@ NAME_BONUS = checker
 
 CC = cc
 FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER) -lm
+FLAGS2 = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER)
 # FLAGS = -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
 
 all: $(NAME)
@@ -19,7 +20,7 @@ ARGS5 = -648 -249 -651 -970 -581 -19 482 -116 76 910 -388 -41 631 -49 696 973 -5
 
 MIN = -999
 MAX = 999
-HOW_MANY = 5
+HOW_MANY = 3
 HOW_MANY2 = 25
 HOW_MUCH = 25
 
@@ -129,7 +130,7 @@ src/obj/%.o: src/%.c
 	@if [ ! -e $(OBJ_FOLDER) ]; then\
 		mkdir -p $(OBJ_FOLDER);\
 	fi
-	@if ! $(CC) -c $(FLAGS) $< -o $@; then \
+	@if ! $(CC) -c $(FLAGS2) $< -o $@; then \
 		$(call shmol_cat_error, $(RED), $(RED_L)); \
 		exit 1; \
 	fi
@@ -158,7 +159,7 @@ src_bonus/obj/%.o: src_bonus/%.c inc/push_swap.h
 	@if [ ! -e $(OBJ_FOLDER_B) ]; then\
 		mkdir -p $(OBJ_FOLDER_B);\
 	fi
-	@if ! $(CC) -c $(FLAGS) -O3 -c $< -o $@; then \
+	@if ! $(CC) -c $(FLAGS2) -O3 -c $< -o $@; then \
 		$(call shmol_cat_error, $(RED), $(RED_L)); \
 		exit 1; \
 	fi

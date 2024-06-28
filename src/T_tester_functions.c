@@ -31,7 +31,7 @@ void	function1(t_data *data, int i, int sw)
 		i = abs(i) - 1;
 	}
 	else
-		small = assign_str_all(data);
+		small = assign_str_b(data);
 	if (!small)
 		return ((void)put("Nothing to be done\n"));
 	while (--i >= 0)
@@ -80,7 +80,7 @@ void	function3(t_data *data, int sw)
 
 	(void)sw;
 	put("\n\t[F3] \e[4mPrint the best string for all numbers"RESET"\n\n");
-	small = assign_str_all(data);
+	small = assign_str_b(data);
 	if (small)
 		put("Smallest string[%d] (%c %d): %s\n\n", small->position,
 			small->ab, small->num_i, small->algo);
