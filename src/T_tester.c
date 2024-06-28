@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:09:40 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 15:25:07 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:13:00 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	reading_cmd(char *raw, t_data *data)
 ///////////////////////////////////////////////////////////////////////////////]
 //  #   WhatIsIt - takes pointer to "pb\npa\n" and update index, return -1 error
 //      return [0-10]
-int	wii_strikes_back(char *cmd, int *index)
+static int	wii_strikes_back(char *cmd, int *index)
 {
 	int	i;
 	int	rtrn;

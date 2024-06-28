@@ -25,13 +25,13 @@ int	sa(t_data *s, char sw)
 		put(SA "\n");
 	if (s->size_a < 2)
 		return (1);
-	s->top_a->above->below = s->top_a->below;
-	s->top_a->below->above = s->top_a->above;
-	s->top_a->above = s->top_a->below;
-	s->top_a->below = s->top_a->below->below;
-	s->top_a->above->below = s->top_a;
-	s->top_a->below->above = s->top_a;
-	s->top_a = s->top_a->above;
+	s->top_a->up->down = s->top_a->down;
+	s->top_a->down->up = s->top_a->up;
+	s->top_a->up = s->top_a->down;
+	s->top_a->down = s->top_a->down->down;
+	s->top_a->up->down = s->top_a;
+	s->top_a->down->up = s->top_a;
+	s->top_a = s->top_a->up;
 	return (1);
 }
 
@@ -42,13 +42,13 @@ int	sb(t_data *s, char sw)
 		put(SB "\n");
 	if (s->size_b < 2)
 		return (1);
-	s->top_b->above->below = s->top_b->below;
-	s->top_b->below->above = s->top_b->above;
-	s->top_b->above = s->top_b->below;
-	s->top_b->below = s->top_b->below->below;
-	s->top_b->above->below = s->top_b;
-	s->top_b->below->above = s->top_b;
-	s->top_b = s->top_b->above;
+	s->top_b->up->down = s->top_b->down;
+	s->top_b->down->up = s->top_b->up;
+	s->top_b->up = s->top_b->down;
+	s->top_b->down = s->top_b->down->down;
+	s->top_b->up->down = s->top_b;
+	s->top_b->down->up = s->top_b;
+	s->top_b = s->top_b->up;
 	return (1);
 }
 

@@ -24,24 +24,24 @@ void	ini_stacks(int ac, char **av, t_data *data)
 {
 	ft_memset(data, 0, sizeof(t_data));
 	ini_cmd(data);
-	data->full_size = ac - 1;
-	data->size_a = data->full_size;
-	// ini instru struct
+	data->size = ac - 1;
+	data->size_a = data->size;
 	if (ac == 2)
 	{
 		data->args = split(av[1], " ");
 		if (!data->args)
 			end(data, MSG_MALLOC, 1);
-		data->full_size = tab_size(data->args);
-		data->size_a = data->full_size;
-		data->top_a = create_stack_a(data->full_size + 1, data->args, data, 1);
+		data->size = tab_size(data->args);
+		data->size_a = data->size;
+		data->top_a = create_stack_a(data->size + 1, data->args, data, 1);
 		return ;
 	}
-	data->top_a = create_stack_a(data->full_size + 1, av, data, 0);
+	data->top_a = create_stack_a(data->size + 1, av, data, 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-//  #   CREATE THE FULL 'A' STACK WITH NUMBER, CHECK ERRORS, RETURN POINTER TO TOP OF A
+//  #   CREATE THE FULL 'A' STACK WITH NUMBER, CHECK ERRORS
+// RETURN POINTER TO TOP OF A
 static t_num	*create_stack_a(int ac, char **av, t_data *data, int j)
 {
 	int		i;
@@ -57,8 +57,8 @@ static t_num	*create_stack_a(int ac, char **av, t_data *data, int j)
 	}
 	assign_value(data);
 	assign_target(data);
-	data->top_a->above = a_end;
-	a_end->below = data->top_a;
+	data->top_a->up = a_end;
+	a_end->down = data->top_a;
 	return (data->top_a);
 }
 
@@ -76,7 +76,7 @@ static t_num	*create_new_node(t_num *last_node, char *arg, t_data *s)
 	if (!new_node)
 		end(s, MSG_MALLOC, 1);
 	new_node->algo = NULL;
-	new_node->above = last_node;
+	new_node->up = last_node;
 	error = 0;
 	new_node->num = ft_atoi(arg, &error);
 	if (error == -2)
@@ -84,7 +84,7 @@ static t_num	*create_new_node(t_num *last_node, char *arg, t_data *s)
 	else if (error < 0)
 		(free_s(new_node), end(s, MSG_NOTNUM, 0));
 	if (last_node)
-		last_node->below = new_node;
+		last_node->down = new_node;
 	return (new_node);
 }
 
@@ -107,11 +107,11 @@ static void	assign_value(t_data *data)
 				end(data, MSG_DUPLICATE, 0);
 			if (ptr_i->num > ptr_k->num)
 				ptr_i->num_i++;
-			ptr_k = ptr_k->below;
+			ptr_k = ptr_k->down;
 		}
 		if (!ptr_i->num_i)
 			data->zero = ptr_i;
-		ptr_i = ptr_i->below;
+		ptr_i = ptr_i->down;
 	}
 }
 
@@ -125,7 +125,7 @@ static void	assign_target(t_data *data)
 	ptr_i = data->top_a;
 	while (ptr_i)
 	{
-		target = (ptr_i->num_i + 1) % data->full_size;
+		target = (ptr_i->num_i + 1) % data->size;
 		ptr_k = data->top_a;
 		while (ptr_k)
 		{
@@ -135,8 +135,8 @@ static void	assign_target(t_data *data)
 				ptr_k->hunter = ptr_i;
 				break ;
 			}
-			ptr_k = ptr_k->below;
+			ptr_k = ptr_k->down;
 		}
-		ptr_i = ptr_i->below;
+		ptr_i = ptr_i->down;
 	}
 }

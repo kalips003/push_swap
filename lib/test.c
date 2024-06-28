@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:54:09 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/25 20:57:20 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:43:51 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,6 @@
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av, char **env)
 {
-	put("we want:\n\
-		→ 0: cos=1, sin =0\n\
-		↓ 1: cos=0, sin =1\n\
-		← 2: cos=-1, sin =0\n\
-		↑ 3: cos=0, sin =-1\n");
-	int a;
-	int b;
-	int i = -1;
-	while (++i < 4)
-	{
-		b = (int)sin(i * PI / 2);
-		a = (int)cos(i * PI / 2);
-		printf("%d: cos= %.1d, sin = %.1d\n", i, a, b);
-	}
-	printf("--->%d\n\n\n\n", (int)round(0.49));
-	char *string = str("asdf%dalosdif", 123);
-	put("=%s=\n",  string);
-	free(string);
-	put(BLINK"->BREAK POINT:\n");
-	free_s(gnl(0));
-	put(CLS"=hello  again=\n");
 	return (0);
 }
 ///////////////////////////////////////////////////////////////////////////////]

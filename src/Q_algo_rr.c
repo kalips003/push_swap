@@ -23,26 +23,26 @@ static void	lets_r(char *c1, char *c2);
 //  bit 0b01 = one on -1
 void	lets_rrr(t_algo *a, t_num *one, t_num *two, int bit)
 {
-	a->str1 = lets_rr(str("%.*c", one->dist_p + ((bit & 2) >> 1), '5'
-				+ (one->pile_c == 'B')), str("%.*c", two->dist_p + (bit & 1),
-				'5' + (two->pile_c == 'B')));
-	a->str2 = lets_rr(str("%.*c", one->dist_n - ((bit & 2) >> 1), '8'
-				+ (one->pile_c == 'B')), str("%.*c", two->dist_n - (bit & 1),
-				'8' + (two->pile_c == 'B')));
-	a->str3 = fjoin(2, 0b11, str("%.*c", one->dist_p + ((bit & 2) >> 1), '5'
-				+ (one->pile_c == 'B')), str("%.*c", two->dist_n - (bit & 1),
-				'8' + (two->pile_c == 'B')));
-	a->str4 = fjoin(2, 0b11, str("%.*c", one->dist_n - ((bit & 2) >> 1), '8'
-				+ (one->pile_c == 'B')), str("%.*c", two->dist_p + (bit & 1),
-				'5' + (two->pile_c == 'B')));
-	a->str1 = smallest_str(4, a->str1, a->str2, a->str3, a->str4);
+	a->s1 = lets_rr(str("%.*c", one->dist_p + ((bit & 2) >> 1), '5'
+				+ (one->ab == 'B')), str("%.*c", two->dist_p + (bit & 1),
+				'5' + (two->ab == 'B')));
+	a->s2 = lets_rr(str("%.*c", one->dist_n - ((bit & 2) >> 1), '8'
+				+ (one->ab == 'B')), str("%.*c", two->dist_n - (bit & 1),
+				'8' + (two->ab == 'B')));
+	a->s3 = fjoin(2, 0b11, str("%.*c", one->dist_p + ((bit & 2) >> 1), '5'
+				+ (one->ab == 'B')), str("%.*c", two->dist_n - (bit & 1),
+				'8' + (two->ab == 'B')));
+	a->s4 = fjoin(2, 0b11, str("%.*c", one->dist_n - ((bit & 2) >> 1), '8'
+				+ (one->ab == 'B')), str("%.*c", two->dist_p + (bit & 1),
+				'5' + (two->ab == 'B')));
+	a->s1 = smallest_str(4, a->s1, a->s2, a->s3, a->s4);
 }
 
 static char	*lets_rr(char *s1, char *s2)
 {
-	int len1;
-	int len2;
-	int i;
+	int	len1;
+	int	len2;
+	int	i;
 
 	len1 = len(s1);
 	len2 = len(s2);

@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:51:31 by kalipso           #+#    #+#             */
-/*   Updated: 2024/06/26 12:25:28 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:43:30 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,21 @@
 ╚═╝░░╚═╝  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░╚═╝╚══════╝
 
 
-2 1 0 > 2 or 3 coups max
-1 5 2 4 3 (or any 5 values)> 12-8 coups
-
-checker doesnt return error on:
-'0ldfjhaljdfhljaflds' since it start with 0
-
-get back the old checker for find str
-
 * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 ///////////////////////////////////////////////////////////////////////////////]
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	data;
 
 	if (ac < 2)
-		return (put(MSG_NONUM));
+		return (put(MSG_NONUM "try 'make n' then 'make m'\n"), 0);
 	ini_stacks(ac, av, &data);
-	algo_2(&data, 1);
+	if (final_test(&data))
+		end(&data, NULL, 0);
+	if (data.size <= 15)
+		algo_1(&data, 1);
+	else
+		algo_2(&data, 1);
 	end(&data, NULL, !(final_test(&data)));
 	return (0);
 }

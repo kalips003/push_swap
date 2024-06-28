@@ -2,8 +2,8 @@ NAME = push_swap
 NAME_BONUS = checker
 
 CC = cc
-# FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER) -lm
-FLAGS = -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
+FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER) -lm
+# FLAGS = -Wextra -g -fPIE -I$(HEADER_FOLDER) -lm
 
 all: $(NAME)
 
@@ -11,7 +11,7 @@ all: $(NAME)
 # │                  	 	        TESTING                    	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
 
-ARGS = "1 6 5 7 9 4 8 33"
+ARGS = 1 0 4 3 2
 ARGS2 = 1 6 5 7 9 4 8 33
 ARGS3 = 1 2 3 5 4
 ARGS4 = 5 4 8 66 -11 9 7 6
@@ -19,32 +19,26 @@ ARGS5 = -648 -249 -651 -970 -581 -19 482 -116 76 910 -388 -41 631 -49 696 973 -5
 
 MIN = -999
 MAX = 999
-HOW_MANY = 100
+HOW_MANY = 500
 HOW_MANY2 = 25
-HOW_MUCH = 50
+HOW_MUCH = 10
 
+# args fixed
 a: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
 	./$(word 2, $^) $(ARGS5)
 
 b: libft $(NAME_BONUS) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
-	./$(word 2, $^) $(ARGS5)
+	./$(word 2, $^) $(ARGS)
 
 # random the args
 c: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) number ね?, $(CLS), );
 	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
 	echo $$ARGS; \
-	./$(word 2, $^) $$ARGS | wc -l
-
-c2: libft $(NAME) inc/push_swap.h
-	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) number ね?, $(CLS), );
-	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
-	echo $$ARGS; \
 	./$(word 2, $^) $$ARGS
 
-# random the args
 d: libft $(NAME_BONUS) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY2) number ね?, $(CLS), );
 	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY2) | tr '\n' ' ' | sed -r 's/ $$//'); \
@@ -53,13 +47,12 @@ d: libft $(NAME_BONUS) inc/push_swap.h
 # valgrind
 v: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
-	-$(VALGRIND) ./$(word 2, $^) $(ARGS2)
+	-$(VALGRIND) ./$(word 2, $^) $(ARGS)
 
 # valgrind
 w: libft $(NAME_BONUS) inc/push_swap.h
 	@$(call random_shmol_cat, "vlgrininnng ... $(NAME_BONUS)!", "$@: $(MAP1)", $(CLS), );
 	-$(VALGRIND) ./$(word 2, $^) $(ARGS2)
-
 
 m: libft $(NAME) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) numbers、$(HOW_MUCH) times ね?, $(CLS), );
@@ -70,10 +63,27 @@ m: libft $(NAME) inc/push_swap.h
 		return_code=$$?; \
 		count=$$(echo "$$output" | wc -l); \
 		echo "test $$i: $$count moves, OK? $$return_code"; \
+		if [ $$return_code -eq 1 ]; then \
+			echo "$$ARGS"; \
+			echo "$$ARGS" > bad_output; \
+			echo "$$output" >> bad_output; \
+		fi; \
 		total=$$((total + count)); \
 	done; \
 	average=$$((total / $(HOW_MUCH))); \
 	$(call random_shmol_cat, "heres average numbar:", $$average, , )
+# echo "test $$i: $$ARGS";
+
+BAD_ARGS =  "0 1 2 2a 5" "0 1 2 wtf" "0 1 2 -2147483648 -2147483650" "0 1 2 9999999999 9" "4" "" "i want ..." "0 1-2 8 5" "0 1 2 8 1 5"
+
+n: libft $(NAME) inc/push_swap.h
+	@for arg in $(BAD_ARGS); do \
+	$(call random_shmol_cat, teshting lots of bad args:, $$arg, $(CLS), ); \
+	$(VALGRIND) ./$(NAME) $$arg; \
+	echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	read -p "" key; \
+	done
+	$(VALGRIND) ./$(NAME) 1 5 2 7
 
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	        SOURCES                    	         │
@@ -211,15 +221,15 @@ git: fclean
 	git commit -m "$$current_date"; \
 	git push
 
-NORM_FILE = src/
+NORM_FILE = inc/
 
 norm: fclean
 	@$(call random_shmol_cat_blink, 掃除してるかな..、いいね、いいねえー, giv file to norm, $(CLS), );
 	-@read -p 'file...:' path; \
 	if [ -z "$$path" ]; then \
-		watch norminette $(NORM_FILE); \
+		watch -n 0.5 norminette $(NORM_FILE); \
 	else \
-		watch norminette $$path; \
+		watch -n 0.5 norminette $$path; \
 	fi
 
 #

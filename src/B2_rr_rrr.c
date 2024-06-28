@@ -37,7 +37,7 @@ int	rra(t_data *s, char sw)
 		put(RRA "\n");
 	if (s->size_a < 2)
 		return (1);
-	s->top_a = s->top_a->above;
+	s->top_a = s->top_a->up;
 	return (1);
 }
 
@@ -48,7 +48,7 @@ int	rrb(t_data *s, char sw)
 		put(RRB "\n");
 	if (s->size_b < 2)
 		return (1);
-	s->top_b = s->top_b->above;
+	s->top_b = s->top_b->up;
 	return (1);
 }
 

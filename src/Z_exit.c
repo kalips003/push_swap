@@ -28,11 +28,10 @@ void	ft_break(int num, char *string2, int cls, void *ptr)
 
 	a = ft_print_cat(num, string2, cls);
 	if (ptr)
-		put("--->num = %p; algo = %s\n", ptr, ((t_num*)ptr)->algo);
+		put("--->num = %p; algo = %s\n", ptr, ((t_num *)ptr)->algo);
 	else
 		put("--->num = %p\n", ptr);
-	put(BLINK "\033[38;5;%dm\n\t\t>>>  続けましょう？  <<<\n" \
-		RESET, a);
+	put(BLINK "\033[38;5;%dm\n\t\t>>>  続けましょう？  <<<\n" RESET, a);
 	free_s(gnl(0));
 }
 
@@ -45,9 +44,7 @@ int	end(t_data *s, char *message, int exit_code)
 	{
 		free_algos(s);
 		free_tab(s->args);
-		// if (s->size_a && s->top_a)
 		free_stack(s->top_a);
-		// if (s->size_b && s->top_b)
 		free_stack(s->top_b);
 	}
 	if (message && exit_code)
@@ -55,7 +52,6 @@ int	end(t_data *s, char *message, int exit_code)
 	else if (message)
 		put("\t%s", message);
 	exit(exit_code);
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
@@ -67,14 +63,14 @@ void	free_algos(t_data *data)
 
 	i = -1;
 	cursor = data->top_a;
-	while (++i < data->full_size)
+	while (++i < data->size)
 	{
 		if (i == data->size_a)
 			cursor = data->top_b;
 		if (!cursor)
 			break ;
 		cursor->algo = free_s(cursor->algo);
-		cursor = cursor->below;
+		cursor = cursor->down;
 	}
 }
 
@@ -88,9 +84,9 @@ static void	free_stack(t_num *first)
 	if (first == NULL)
 		return ;
 	current = first;
-	while (current->below && current->below != first)
+	while (current->down && current->down != first)
 	{
-		next = current->below;
+		next = current->down;
 		free_s(current);
 		current = next;
 	}
@@ -104,17 +100,17 @@ int	final_test(t_data *s)
 	t_num	*temp;
 	int		i;
 
-	if (s->size_b || s->size_a != s->full_size)
-		return(0);
-	if (s->top_a->num_i || s->top_a->above->num_i != s->full_size - 1)
-		return(0);
+	if (s->size_b || s->size_a != s->size)
+		return (0);
+	if (s->top_a->num_i || s->top_a->up->num_i != s->size - 1)
+		return (0);
 	temp = s->top_a;
 	i = -1;
-	while (++i < s->full_size)
+	while (++i < s->size)
 	{
 		if (temp->num_i != i)
 			return (0);
-		temp = temp->below;
+		temp = temp->down;
 	}
 	return (!!(i));
 }

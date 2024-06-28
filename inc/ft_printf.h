@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:38:31 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/25 14:58:59 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:36:01 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef char	*(*t_str)(va_list, t_flags *);
 int		put(const char *str, ...);
 // int		f_1(const char *str, int *i, va_list args);
 int		print_fd(int fd, const char *str, ...);
-int	ft_print_cat(int num, char *string2, int bit);
+int		ft_print_cat(int num, char *string2, int bit);
 ////////////////////////////////////////////////////////////
 //	#	STRUCT
 // static 1
