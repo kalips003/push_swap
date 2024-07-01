@@ -18,8 +18,8 @@
 # 	make m
 # 	make n
 
-NAMEE = $(NAME)
-NAMEE_BONUS = 
+NAMEE = push_swap
+NAMEE_BONUS = push_swap_bonus
 
 MIN = -999
 MAX = 999
