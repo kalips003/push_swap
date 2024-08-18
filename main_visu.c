@@ -1,38 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   T_tester.c                                         :+:      :+:    :+:   */
+/*   main_visu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 18:09:40 by kalipso           #+#    #+#             */
-/*   Updated: 2024/08/18 01:49:08 by kalipso          ###   ########.fr       */
+/*   Created: 2024/06/25 14:07:11 by kalipso           #+#    #+#             */
+/*   Updated: 2024/08/18 02:01:44 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		tester(t_data *data);
-static int	reading_cmd(char *raw, t_data *data);
-static void	helper_73(t_data *data, char *raw, int *error, int *sw);
-static int	wii_strikes_back(char *cmd, int *index);
+void	visu(t_data *data);
+
+///////////////////////////////////////////////////////////////////////////////]
+int	main(int ac, char **av)
+{
+	t_data	data;
+
+	if (ac < 2)
+		return (put(MSG_NONUM), 0);
+	ini_stacks(ac, av, &data);
+	print_header(&data, 0b011, 0);
+	visu(&data);
+	if (!final_test(&data))
+		end(&data, MSG_KO, 0);
+	end(&data, MSG_OK, 0);
+	return (0);
+}
 
 ///////////////////////////////////////////////////////////////////////////////]
 //			TESTER
 //	#	main tester, ask for raw, execute, loop out when [ctrl-D]
-void	tester(t_data *data)
+void	visu(t_data *data)
 {
 	char	*raw;
 	int		sw;
 	int		error;
+	int		i;
 
 	sw = 0;
-	while (1)
+	i = 0;
+	while (++i)
 	{
 		raw = gnl(0);
 		if (!raw)
 			break ;
 		error = wii_wrapper(raw[0]);
+		ft_print_cat(i, raw, 0b10);
 		if (error >= 0)
 			exec_string(data, raw, 0);
 		else if (error <= -4)
@@ -41,6 +57,7 @@ void	tester(t_data *data)
 		if (error == -1)
 			put("\n\033[38;5;94mtrying:" RESET " %s\n" MSG_BADCMD, raw);
 		free_s(raw);
+		usleep(200000);
 	}
 }
 
@@ -48,7 +65,7 @@ static void	helper_73(t_data *data, char *raw, int *error, int *sw)
 {
 	if (raw[0] == '*' && (*error)++)
 		*sw ^= 1;
-	print_header(data, 0b111, *sw);
+	print_header(data, 0b10, *sw);
 	if (raw[0] == '-' && (*error)++)
 		function1(data, atoi_v(&raw[1]), *sw);
 	else if (raw[0] == '+' && (*error)++)

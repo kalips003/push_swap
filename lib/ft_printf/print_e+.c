@@ -6,7 +6,7 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:35:59 by agallon           #+#    #+#             */
-/*   Updated: 2024/06/19 18:01:01 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/07/16 06:20:19 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	ft_string_hexa(va_list args, t_flags *f)
 //////////////////////////////////////////////////////////// (%t)
 // [ %.*S ] > put * \t in front of the tab
 // [ %-S ] > dont put \n after each line (for gnl return)
+// [ %#S ] > dont put \t on first line
 int	ft_tab(va_list args, t_flags *f)
 {
 	char	**tab;
@@ -77,6 +78,6 @@ int	ft_tab(va_list args, t_flags *f)
 	if (!tab)
 		return (put(BLINK REVERSE "NULL" RESET) - 12);
 	while (tab[++i])
-		f->size += put("%.*c%s%.*c", f->preci, '\t', tab[i], f->minus, '\n');
+		f->size += put("%.*c%s%.*c", f->preci * !(f->hash && (i == 0)), ' ', tab[i], f->minus, '\n');
 	return (f->size);
 }

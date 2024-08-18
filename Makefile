@@ -31,7 +31,7 @@ a: libft $(NAME) inc/push_swap.h
 
 b: libft $(NAME_BONUS) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
-	./$(word 2, $^) $(ARGS)
+	./$(word 2, $^) $(ARGS5)
 
 # random the args
 c: libft $(NAME) inc/push_swap.h
@@ -43,6 +43,14 @@ c: libft $(NAME) inc/push_swap.h
 d: libft $(NAME_BONUS) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY2) number ね?, $(CLS), );
 	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY2) | tr '\n' ' ' | sed -r 's/ $$//'); \
+	./$(word 2, $^) $$ARGS
+
+e: libft $(VISUALISER) inc/push_swap.h
+	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY2) number ね?, $(CLS), );
+	-@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY2) | tr '\n' ' ' | sed -r 's/ $$//'); \
+	make -C .. re; \
+	echo "ARGS: $$ARGS"; \
+	../$(NAME) $$ARGS > _output; \
 	./$(word 2, $^) $$ARGS
 
 # valgrind
@@ -164,6 +172,16 @@ src_bonus/obj/%.o: src_bonus/%.c inc/push_swap.h
 		exit 1; \
 	fi
 
+VISUALISER = visualiser
+
+visualiser: libft $(OBJ_B) main_visu.c inc/push_swap.h
+	@clear
+	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c lib/libft.a -o $(VISUALISER); then \
+		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
+		exit 1; \
+	fi
+	$(call print_cat, $(CLEAR), $(GOLD), $(GREEN1), $(COLOR_4R_1G_5B), $(call pad_word, 10, $(VISUALISER)), $(call pad_word, 12, "Compiled~"));
+
 # ╭──────────────────────────────────────────────────────────────────────╮
 # │                  	 	       OTHERS	                   	         │
 # ╰──────────────────────────────────────────────────────────────────────╯
@@ -194,6 +212,7 @@ clean:
 	$(call print_cat, $(CLEAR), $(COLOR_2R_2G_5B), $(COLOR_3R_2G_0B), $(COLOR_4R_5G_0B), $(call pad_word, 10, "Objects"), $(call pad_word, 12, "Exterminated"));
 
 fclean: clean
+	@rm -f _args _output
 	@rm -rf $(NAME) $(NAME_BONUS)
 	@make -sC lib clean_silent;
 	$(call print_cat, $(CLEAR), $(COLOR_1R_2G_0B), $(COLOR_3R_0G_0B), $(COLOR_2R_1G_0B), $(call pad_word, 10, "All⠀clean"), $(call pad_word, 12, "Miaster"));
