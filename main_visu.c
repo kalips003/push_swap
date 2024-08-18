@@ -6,13 +6,16 @@
 /*   By: kalipso <kalipso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:07:11 by kalipso           #+#    #+#             */
-/*   Updated: 2024/08/18 02:01:44 by kalipso          ###   ########.fr       */
+/*   Updated: 2024/08/18 02:28:41 by kalipso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "inc/push_swap.h"
 
 void	visu(t_data *data);
+static void	helper_73(t_data *data, char *raw, int *error, int *sw);
+static int	reading_cmd(char *raw, t_data *data);
+static int	wii_strikes_back(char *cmd, int *index);
 
 ///////////////////////////////////////////////////////////////////////////////]
 int	main(int ac, char **av)
@@ -63,9 +66,7 @@ void	visu(t_data *data)
 
 static void	helper_73(t_data *data, char *raw, int *error, int *sw)
 {
-	if (raw[0] == '*' && (*error)++)
-		*sw ^= 1;
-	print_header(data, 0b10, *sw);
+	print_header(data, 0b10, 1);
 	if (raw[0] == '-' && (*error)++)
 		function1(data, atoi_v(&raw[1]), *sw);
 	else if (raw[0] == '+' && (*error)++)

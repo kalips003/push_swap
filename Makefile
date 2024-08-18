@@ -176,7 +176,7 @@ VISUALISER = visualiser
 
 visualiser: libft $(OBJ_B) main_visu.c inc/push_swap.h
 	@clear
-	@if ! $(CC) $(FLAGS) $(OBJ_B) main_bonus.c lib/libft.a -o $(VISUALISER); then \
+	@if ! $(CC) $(FLAGS) $(OBJ_B) main_visu.c lib/libft.a -o $(VISUALISER); then \
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
 		exit 1; \
 	fi
