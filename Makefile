@@ -45,13 +45,13 @@ d: libft $(NAME_BONUS) inc/push_swap.h
 	@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY2) | tr '\n' ' ' | sed -r 's/ $$//'); \
 	./$(word 2, $^) $$ARGS
 
-e: libft $(VISUALISER) inc/push_swap.h
+e: libft visualiser
 	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY2) number ね?, $(CLS), );
 	-@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY2) | tr '\n' ' ' | sed -r 's/ $$//'); \
 	make -C .. re; \
 	echo "ARGS: $$ARGS"; \
-	../$(NAME) $$ARGS > _output; \
-	./$(word 2, $^) $$ARGS
+	> _output ../$(NAME) $$ARGS; \
+	< _output ./visualiser $$ARGS
 
 # valgrind
 v: libft $(NAME) inc/push_swap.h
@@ -172,11 +172,9 @@ src_bonus/obj/%.o: src_bonus/%.c inc/push_swap.h
 		exit 1; \
 	fi
 
-VISUALISER = visualiser
-
-visualiser: libft $(OBJ_B) main_visu.c inc/push_swap.h
+visualiser: libft $(OBJ_B) main_visu.c
 	@clear
-	@if ! $(CC) $(FLAGS) $(OBJ_B) main_visu.c lib/libft.a -o $(VISUALISER); then \
+	@if ! $(CC) $(FLAGS) $(OBJ_B) main_visu.c lib/libft.a -o visualiser; then \
 		$(call print_cat, "", $(RED), $(GOLD), $(RED_L), $(call pad_word, 10, "ERROR"), $(call pad_word, 12, "COMPILING..")); \
 		exit 1; \
 	fi
