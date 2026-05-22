@@ -15,7 +15,7 @@ all: $(NAME)
 # Some list of valid args to test 
 ARGS = 1 0 4 3 2
 ARGS2 = 1 6 5 7 9 4 8 33
-ARGS3 = 1 2 3 5 4
+ARGS3 = 7 6 5 4 3 2 1 0
 ARGS4 = 5 4 8 66 -11 9 7 6
 ARGS5 = -648 -249 -651 -970 -581 -19 482 -116 76 910 -388 -41 631 -49 696 973 -543 105 -75 21 542 2 478 549 -670
 
@@ -36,7 +36,7 @@ a: libft $(NAME) inc/push_swap.h
 # MAKE B: call push swap BONUS with the $ARGS list
 b: libft $(NAME_BONUS) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
-	./$(word 2, $^) $(ARGS)
+	./$(word 2, $^) $(ARGS3)
 
 # MAKE C: call push swap with a random list of $HOW_MANY number between $MIN & $MAX
 c: libft $(NAME) inc/push_swap.h

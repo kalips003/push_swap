@@ -16,18 +16,31 @@ void	print(t_data *data, int sw, int bit);
 void	print_header(t_data *data, int bit, int sw);
 void	print_stru_algo(t_algo *a);
 void	print_stack(t_data *data, t_num *s, char sw);
+void	print_stack_a(t_data *data, t_num *s, char sw);
+void	print_stack_b(t_data *data, t_num *s, char sw);
 
-#define COLOR COLOR_2R_3G_5B
+#define COLOR C_235
+#define F_WHITE "\033[38;5;15m"
+
+#define C_STACK_A "\033[38;5;203m" 
+#define B_STACK_A "\033[48;5;88m"
+#define C_STACK_B "\033[38;5;81m"
+#define B_STACK_B "\033[48;5;24m"
+#define C_MAX "\033[38;5;129m"
+#define C_OK "\033[38;5;46m" 
+#define C_REVERSE "\033[38;5;220m"
+
 ///////////////////////////////////////////////////////////////////////////////]
 void	print(t_data *data, int sw, int bit)
 {
 	if (!bit)
 		put(CLEAR);
-	put(UNDER_B"[ B ] ["RESET);
-	print_stack(data, data->top_b, sw);
-	put(UNDER_B" > "RESET"  "UNDER_R" < "RESET);
+	put(C_STACK_A"-A- ↓"B_STACK_A"[ ");
 	print_stack(data, data->top_a, sw);
-	put(UNDER_R"] [ A ]"RESET"\n");
+	put(C_STACK_A"]"RESET C_STACK_A"↑\n"C_STACK_B"-B- ↓"B_STACK_B"[ ");
+	print_stack(data, data->top_b, sw);
+	put(C_STACK_B"]"RESET C_STACK_B"↑ "RESET"\n");
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
@@ -36,6 +49,12 @@ void	print(t_data *data, int sw, int bit)
 //  [ - , 1, - ] = print data
 //  [ 1, - , - ] = print header
 //  if sw: num_i
+
+/*
+[*] toogle / number / index
+[ctrl-D] grade if sorted
+
+*/
 void	print_header(t_data *data, int bit, int sw)
 {
 	if ((bit & 1) == 1)
@@ -55,6 +74,7 @@ void	print_header(t_data *data, int bit, int sw)
 	put("\n");
 }
 
+///////////////////////////////////////////////////////////////////////////////]
 //  #   print one stack
 void	print_stack(t_data *data, t_num *s, char sw)
 {
@@ -62,27 +82,25 @@ void	print_stack(t_data *data, t_num *s, char sw)
 
 	i = -1;
 	give_position(data);
-	if (s && s->ab == 'B')
+	if (s)
 		s = s->up;
 	while (s && ++i < s->size_s)
 	{
-		if ((s->target == s->up && s->ab == 'A')
-			|| (s->target == s->down && s->ab == 'B'))
-			put(BLUE);
-		else if ((s->target == s->down && s->ab == 'A')
-			|| (s->target == s->up && s->ab == 'B'))
-			put(RED);
+		if ((s->target == s->up && s->ab == 'A') || (s->target == s->down && s->ab == 'B'))
+			put(C_REVERSE);
+		else if ((s->target == s->down && s->ab == 'A') || (s->target == s->up && s->ab == 'B'))
+			put(C_OK);
 		else
-			put(RESET);
+			put(F_WHITE);
 		if (s->num_i == 0 || s->num_i == data->size - 1)
-			put(PURPLE);
+			put(C_MAX);
 		if (sw)
-			put("\033[4m""% 3d", s->num_i);
+			put("%d ", s->num_i);
 		else
-			put("\033[4m""% 3d", s->num);
-		s = *((t_num **)s + (s->ab == 'A'));
+			put("%d ", s->num);
+		s = s->up;
 	}
-	put(RESET);
+	// put(RESET);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
