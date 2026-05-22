@@ -25,7 +25,7 @@ int	algo_2(t_data *data, int sw)
 	t_num	*small;
 	int		size;
 	char	*first_string;
-	char	*last;
+	// char	*last;
 
 	first_string = str("%.*c", data->size_a - 2, '0');
 	size = exec_string(data, first_string, sw);
@@ -36,9 +36,9 @@ int	algo_2(t_data *data, int sw)
 		size += exec_string(data, small->algo, sw);
 		small = assign_str_b(data);
 	}
-	last = sublim(data);
-	size += exec_string(data, last, sw);
-	free_s(last);
+	// last = sublim(data);
+	// size += exec_string(data, last, sw);
+	// free_s(last);
 	return (size);
 }
 

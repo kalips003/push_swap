@@ -7,25 +7,31 @@
 # 				░░░██║░░░██╔══╝░░░╚═══██╗░░░██║░░░██╔══╝░░██║░░░██║██╔══██╗
 # 				░░░██║░░░███████╗██████╔╝░░░██║░░░███████╗╚██████╔╝██║░░██║
 # 				░░░╚═╝░░░╚══════╝╚═════╝░░░░╚═╝░░░╚══════╝░╚═════╝░╚═╝░░╚═╝
+# 
+# ------------------------------------------------------------------------------------------------------------- >
 
 # 	COPY PASTE ALL OF THIS SOMEWHERE IN YOUR MAKEFILE
+
 # 	MAKE SURE THE NAME OF THE PROJECT IS:
-# 		$(NAME) = push_swap
-# 	or else change the value of $(NAMEE)
-
-# 	AVAILABLE: (see desccription below)
-# 	make a
-# 	make m
-# 	make n
-
+# 		$(NAME) = push_swap		(or else change the value of below)
 NAMEE = push_swap
-NAMEE_BONUS = push_swap_bonus
+
+# 	DOWNLOAD AND PUT THE TESTER AT THE ROOT OF YOUR PROJECT
+# 		if the tester isnt 'checker_linux', change the name below
+CHECKER_NAME = checker_linux
+
+# ------------------------------------------------------------------------------------------------------------- >
+# 	AVAILABLE: (see desccription below)
+# 	make a - test once with random numbers
+# 	make m - test many times with random numbers
+# 	make n - test bad args
 
 MIN = -999
 MAX = 999
-HOW_MANY = 3
-HOW_MUCH = 25
+HOW_MANY = 100
+HOW_MANY_TIMES = 25
 
+#######################################################################################
 # MAKE A: Run PUSH_SWAP with 'HOW_MANY' random numbers between 'MIN' and 'MAX'
 # 
 a: $(NAMEE)
@@ -34,41 +40,59 @@ a: $(NAMEE)
 	echo $$ARGS; \
 	./$(word 1, $^) $$ARGS
 
-# MAKE M: Run PUSH_SWAP 'HOW_MUCH' times, output the total move cost
-# 			prints the return of YOUR main (0 is expeccted for stack sorted, 1 if not)
+
+#######################################################################################
+# MAKE M: Run PUSH_SWAP $HOW_MANY_TIMES times, output the total move cost
 # 
-m: $(NAMEE)
-	@$(call random_shmol_cat, "\'tis push shwap tesshter、0 is OK、1 is KO", $(HOW_MANY) numbers、$(HOW_MUCH) times ね?, $(CLS), );
+m: libft $(NAME) inc/push_swap.h
+	@$(call shmol_cat_color, $(C_123), $(C_321), "\'tis push shwap tesshter", "$(HOW_MANY) numbers、$(HOW_MANY_TIMES) times ね?", $(CLS), );
 	@total=0; \
-	for i in $$(seq 1 $(HOW_MUCH)); do \
+	for i in $$(seq 1 $(HOW_MANY_TIMES)); do \
 		ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
-		output=$$(./$(word 1, $^) $$ARGS); \
-		return_code=$$?; \
+		output=$$(./$(NAME) $$ARGS); \
 		count=$$(echo "$$output" | wc -l); \
-		echo "test $$i: $$count moves, OK? $$return_code"; \
-		if [ $$return_code -eq 1 ]; then \
-			echo "pile isnt sorted with these: $$ARGS"; \
-			echo "$$ARGS" > bad_output; \
-			echo "$$output" >> bad_output; \
+		result=$$(echo "$$output" | ./$(CHECKER_NAME) $$ARGS); \
+		echo -e -n "$(C_123)" "test $$i: " "$(C_321)" "$$count" "$(C_123)" "moves: "; \
+		if [ "$$result" = "KO" ]; then \
+			echo -e "$(NOK)"; \
+			echo -e "$(C_411)" "FAILED args saved in bad_args, output saved in bad_output"; \
+			echo "$$ARGS" > bad_args; \
+			echo "$$output" > bad_output; \
+		else \
+			echo -e "$(OK)"; \
 		fi; \
-		total=$$((total + count)); \
+		((total += count)); \
 	done; \
-	average=$$((total / $(HOW_MUCH))); \
+	average=$$((total / $(HOW_MANY_TIMES))); \
 	$(call random_shmol_cat, "heres average numbar:", $$average, , )
 
-BAD_ARGS =  "0 1 2 2a 5" "0 1 2 wtf" "0 1 2 -2147483648 -2147483650" "0 1 2 9999999999 9" "4" "" " "  "-" "i want ..." "0 1-2 8 5" "0 1 2 8 1 5"
 
+BAD_ARGS =  "0 1 2 2a 5" "0 1 2 wtf" "0 1 2 -2147483648 -2147483650" "0 1 2 9999999999 9" "4" "" " "  "-" "i want ..." "0 1-2 8 5" "0 1 2 8 1 5"
+#######################################################################################
 # MAKE N: Run a dozen bad arguments, with valgrind
 # 
 n: $(NAMEE)
 	@for arg in $(BAD_ARGS); do \
 	$(call random_shmol_cat, teshting lots of bad args:, $$arg, $(CLS), ); \
 	$(VALGRIIND) ./$(word 1, $^) $$arg; \
-	echo "\t\033[5m~ Press Enter to continue...\033[0m"; \
+	echo -e "\t$(BLINK)$(C_430)~ Press Enter to continue...$(RESET)"; \
 	read -p "" key; \
 	done
 	$(call random_shmol_cat, this one should work fine:, 1 5 2 7 -3, $(CLS), )
 	$(VALGRIIND) ./$(word 1, $^) 1 5 2 7
+
+
+#######################################################################################
+# --------------------------------------------------------------------------------- >
+# @$(call shmol_cat_color, $(c_c), $(c_t), txt1, txt2, $(CLS), $(RESET));
+# $(1)=COLOR1, $(2)=COLOR2; $(3)= text1; $(4)= text2; $(5)=$(CLEAR); $(6)=$(RESET)
+define shmol_cat_color
+	echo -e "$(5)$(2)\
+	\tにゃ~$(1)\t⠀╱|、\n\
+	\t\t(˚ˎ。7⠀⠀⠀$(2)~ $(3) ~$(1)\n\
+	\t\t⠀|、˜\\\\\t\t$(2)$(4)$(1)\n\
+	\t\t⠀じしˍ)ノ\n$(6)"
+endef
 
 # ------------------------------------------------------------------------------------------------------------- >
 # @$(call random_shmol_cat, text 1, text 2, $(CLS), $(RESET));
@@ -76,7 +100,7 @@ n: $(NAMEE)
 define random_shmol_cat
 	COLOR=$$(printf "\033[38;5;%dm" $$(shuf -i 1-255 -n 1)); \
 	COLOR2=$$(printf "\033[38;5;%dm" $$(shuf -i 0-255 -n 1)); \
-	echo "$(3)$${COLOR2}\
+	echo -e "$(3)$${COLOR2}\
 	\tにゃ~$${COLOR}\t⠀╱|、\n\
 	\t\t(˚ˎ。7⠀⠀⠀$${COLOR2}~ $(1) ~$${COLOR}\n\
 	\t\t⠀|、˜\\\\\t\t$${COLOR2}~ $(2)$${COLOR}\n\
@@ -84,6 +108,17 @@ define random_shmol_cat
 endef
 
 CLS = \033[2J\033[H
+RESET = \033[0m
+BLINK = \033[5m
+C_321 = \033[38;5;137m
+C_123 = \033[38;5;67m
+C_411 = \033[38;5;167m
+C_430 = \033[38;5;178m
+RED = \033[38;5;1m
+GREEN = \033[38;5;2m
+OK = $(GREEN) OK $(RESET)
+NOK = $(RED) KO $(RESET)
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - -  - VALGRIIND
 VALGRIIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s --track-fds=yes
 # ------------------------------------------------------------------------------------------------------------- >
