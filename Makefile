@@ -1,5 +1,6 @@
 NAME = push_swap
 NAME_BONUS = checker
+VISU = visualiser
 
 CC = cc
 FLAGS = -Wextra -Wall -Werror -g -fPIE -I$(HEADER_FOLDER) -lm
@@ -219,7 +220,7 @@ clean:
 
 fclean: clean
 	@rm -f _args _output
-	@rm -rf $(NAME) $(NAME_BONUS)
+	@rm -f $(NAME) $(NAME_BONUS) $(VISU)
 	@make -sC lib clean_silent;
 	$(call print_cat, $(CLEAR), $(C_120), $(C_300), $(C_210), $(call pad_word, 10, "All⠀clean"), $(call pad_word, 12, "Miaster"));
 
