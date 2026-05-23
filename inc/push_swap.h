@@ -15,6 +15,17 @@
 
 # include "libft.h"
 
+#define COLOR C_235
+#define F_WHITE "\033[38;5;15m"
+
+#define C_STACK_A "\033[38;5;203m" 
+#define B_STACK_A "\033[48;5;88m"
+#define C_STACK_B "\033[38;5;81m"
+#define B_STACK_B "\033[48;5;24m"
+#define C_MAX "\033[38;5;129m"
+#define C_OK "\033[38;5;46m" 
+#define C_REVERSE "\033[38;5;220m"
+
 ///////////////////////////////////////////////////////////////////////////////]
 typedef struct s_stacks	t_data;
 typedef struct s_entry	t_num;

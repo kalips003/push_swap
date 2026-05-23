@@ -17,7 +17,11 @@ void	function2(t_data *data, int i, int sw);
 void	function3(t_data *data, int sw);
 
 ///////////////////////////////////////////////////////////////////////////////]
-//  function 1 to test [ - ]
+/*
+	function test [ -(nth number) ]
+	Execute the best string from numbers in stack B
+		(if an index is given, execute string for that number)
+*/
 void	function1(t_data *data, int i, int sw)
 {
 	t_num	*small;
@@ -33,18 +37,23 @@ void	function1(t_data *data, int i, int sw)
 	else
 		small = assign_str_b(data);
 	if (!small)
-		return ((void)put("Nothing to be done\n"));
+		return ((void)put(COLOR"Nothing to be done\n"RESET));
 	while (--i >= 0)
 		small = small->down;
 	exec_string(data, small->algo, 0);
 	print_header(data, 0b111, sw);
-	put("\n\t[F1] \e[4mExecuting the best string, or your choice"RESET"\n\n");
-	put("Hunter = (n: %d)[i: %d]\n", small->num, small->num_i);
-	put("Last cmd:\n\t%s\n\n", small->algo);
+	put(COLOR"\n\t\e[4mLast executed string for:"RESET \
+		COLOR" ["RESET"%d"COLOR"]\n\n"RESET"   %s", small->num_i * sw + \
+		small->num * !sw, small->algo);
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-//  function 2 to test [ + ]
+/*
+	function test [ +(nth number) ]
+	Print info for the nth number
+		index 0 ... n for stack A
+		index -1 ... -n for stack B
+*/
 void	function2(t_data *data, int i, int sw)
 {
 	t_num	*temp;
@@ -71,36 +80,30 @@ void	function2(t_data *data, int i, int sw)
 }
 
 ///////////////////////////////////////////////////////////////////////////////]
-//  function 3 to test [ . ]
+/*
+	function test [ . ]
+	print strings for all numbers
+*/
 void	function3(t_data *data, int sw)
 {
 	t_num	*temp;
 	t_num	*small;
 	int		i;
 
-	(void)sw;
-	put("\n\t[F3] \e[4mPrint the best string for all numbers"RESET"\n\n");
-	small = assign_str_b(data);
+	put(COLOR "\n\t\e[4mBest movement string for all numbers:"RESET"\n\n");
+	small = assign_str_all(data);
 	if (small)
-		put("Smallest string[%d] (%c %d): %s\n\n", small->position,
-			small->ab, small->num_i, small->algo);
-	else
-		put("No string: (%p)\n\n", small);
+		put(COLOR"Smallest string for ["RESET"%d"COLOR"]: "RESET"%s\n\n", small->num_i * sw + small->num * !sw, small->algo);
 	i = -1;
 	temp = data->top_a;
 	while (++i < data->size)
 	{
 		if (i == data->size_a && put("\n"))
 			temp = data->top_b;
-		put("%c) -%d- = %s\n", temp->ab, temp->num_i, temp->algo);
+		if (temp->ab == 'A')
+			put(B_STACK_A C_STACK_A"[ % 3d ]"RESET" %s\n", temp->num_i * sw + temp->num * !sw, temp->algo);
+		else
+			put(B_STACK_B C_STACK_B"[ % 3d ]"RESET" %s\n", temp->num_i * sw + temp->num * !sw, temp->algo);
 		temp = temp->down;
 	}
 }
-// {
-// 	int	a;
-
-// 	put("\n\t[F3] \e[4mExecute algo 1"RESET"\n\n");
-// 	a = algo_1(data, 1);
-// 	put("how many moves: %d\n", a);
-// 	print_header(data, 0b010, sw);
-// }

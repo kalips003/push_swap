@@ -37,7 +37,7 @@ a: libft $(NAME) inc/push_swap.h
 # MAKE B: call push swap BONUS with the $ARGS list
 b: libft $(NAME_BONUS) inc/push_swap.h
 	@$(call random_shmol_cat, "\'tis push shwap... $@", 'hav fun ね?', $(CLS), );
-	./$(word 2, $^) $(ARGS3)
+	./$(word 2, $^) $(ARGS5)
 
 # MAKE C: call push swap with a random list of $HOW_MANY number between $MIN & $MAX
 c: libft $(NAME) inc/push_swap.h

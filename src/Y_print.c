@@ -19,17 +19,6 @@ void	print_stack(t_data *data, t_num *s, char sw);
 void	print_stack_a(t_data *data, t_num *s, char sw);
 void	print_stack_b(t_data *data, t_num *s, char sw);
 
-#define COLOR C_235
-#define F_WHITE "\033[38;5;15m"
-
-#define C_STACK_A "\033[38;5;203m" 
-#define B_STACK_A "\033[48;5;88m"
-#define C_STACK_B "\033[38;5;81m"
-#define B_STACK_B "\033[48;5;24m"
-#define C_MAX "\033[38;5;129m"
-#define C_OK "\033[38;5;46m" 
-#define C_REVERSE "\033[38;5;220m"
-
 ///////////////////////////////////////////////////////////////////////////////]
 void	print(t_data *data, int sw, int bit)
 {
@@ -60,15 +49,18 @@ void	print_header(t_data *data, int bit, int sw)
 	if ((bit & 1) == 1)
 		put(CLEAR);
 	if (((bit >> 2) & 1) == 1)
-		put(RESET "\n(8) "RRA" (9) "RRB" (:) "RRR"  "
-			"\n(5) "RA"  (6) "RB"  (7) "RR"  "
-			"\n(2) "SA"  (3) "SB"  (4) "SS"  "
-			"\n(0) "PB"  (1) "PA"\n\n"
-			COLOR" ["RESET"-n"COLOR"] F1 "
-			"["RESET"+n"COLOR"] F2 "
-			"["RESET"."COLOR"] F3 "
-			"["RESET"*"COLOR"] TOOGLE  "
-			"["RESET"^D"COLOR"] grade me\n\n"RESET);
+		put(COLOR" \e[4mCommands encoding:"RESET
+			"\n\n  (0) "PB"  (1) "PA
+			"\n  (2) "SA"  (3) "SB"  (4) "SS
+			"\n  (5) "RA"  (6) "RB"  (7) "RR
+			"\n  (8) "RRA" (9) "RRB" (:) "RRR
+
+			COLOR"\n\n \e[4mPossible Actions:"RESET
+
+			COLOR"\n\n  ["RESET" - "COLOR"] Execute the best possible string"
+			COLOR"\n  ["RESET" . "COLOR"] Show movement string for all numbers"
+			COLOR"\n  ["RESET" * "COLOR"] Toogle Index / Numbers"
+			COLOR"\n  ["RESET" crtl-D "COLOR"] Finish / Grade me\n\n\n"RESET);
 	if (((bit >> 1) & 1) == 1)
 		print(data, sw, bit);
 	put("\n");
