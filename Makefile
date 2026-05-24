@@ -27,7 +27,7 @@ MAX = 999
 # How many numbers to generate
 HOW_MANY = 100
 # How many times to test
-HOW_MANY_TIMES = 3
+HOW_MANY_TIMES = 10
 
 # MAKE A: call push swap with the $ARGS list
 a: libft $(NAME) inc/push_swap.h
@@ -48,12 +48,10 @@ c: libft $(NAME) inc/push_swap.h
 
 # MAKE C: call push swap with a random list of $HOW_MANY number between $MIN & $MAX
 d: libft visualiser
-	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY2) number ね?, $(CLS), );
-	-@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY2) | tr '\n' ' ' | sed -r 's/ $$//'); \
-	make -C .. re; \
-	echo "ARGS: $$ARGS"; \
-	> _output ../$(NAME) $$ARGS; \
-	< _output ./visualiser $$ARGS
+	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) number ね?, $(CLS), );
+	-@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
+	echo "ARGS: $$ARGS"; echo; \
+	./$(NAME) $$ARGS | ./$(VISU) $$ARGS
 
 # Call push swap $ARGS with VALGRIND
 v: libft $(NAME) inc/push_swap.h

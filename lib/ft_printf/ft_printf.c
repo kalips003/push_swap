@@ -146,16 +146,16 @@ int	ft_print_cat(int num, char *string2, int bit)
 	color2 = (int)(rand() % (255 + 1));
 	color3 = (int)(rand() % (255 + 1));
 	if ((bit >> 1) & 1)
-		put(CLS);
-	put("\033[38;5;%dm\
+		printf(CLS);
+	printf("\033[38;5;%dm\
 	\tにゃ~\033[38;5;%dm\t⠀╱|、\n\
 	\t\t(˚ˎ。7⠀⠀⠀\033[38;5;%dm~ %d ~\033[38;5;%dm\n\
-	\t\t⠀|、˜\\\t\t\t\033[38;5;%dm~ %s\033[38;5;%dm\n\
+	\t\t⠀|、˜\\\t\t\t\033[38;5;%dm~ %s\033[38;5;%dm\
 	\t\t⠀じしˍ)ノ\n", \
 	color2, color1, color2, num, color1, color2, string2, color1);
 	if ((bit >> 0) & 1)
 	{
-		put(BLINK "\033[38;5;%dm\n\t\t>>>  PRISS ENTER TO CONTINUE  <<<\n" \
+		printf(BLINK "\033[38;5;%dm\n\t\t>>>  PRISS ENTER TO CONTINUE  <<<\n" \
 			RESET, color3);
 		free_333(gnl(0));
 	}

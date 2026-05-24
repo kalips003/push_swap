@@ -168,73 +168,39 @@ void					ft_break(int num, char *string2, int cls, void *ptr);
 int						end(t_data *s, char *message, int exit_code);
 void					free_algos(t_data *data);
 int						final_test(t_data *s);
-
-/*
 ///////////////////////////////////////////////////////////////////////////////]
-// char	reverse_c(char c);
-char	reverse_c(char c)
-{
-	if (c >= '1')
-		c ^= 1;
-	else if (c >= '4')
-		return (c);
-	else if (c >= '7')
-		c += 3;
-	else if (c >= ':')
-		c -= 3;
-	return (c);
-}
-
-// char	*reverse_str(char *cmd);
-char	*reverse_str(char *cmd)
-{
-	int		size;
-	char	*reverse;
-	int		i;
-
-	size = len(cmd);
-	reverse = str("%s", cmd);
-	if (!reverse)
-		return (NULL);
-	i = -1;
-	while (cmd[++i])
-		reverse[size - i - 1] = reverse_c(cmd[i]);
-	return (reverse);
-}
-///////////////////////////////////////////////////////////////////////////////]
-*/
 
 // WITH COLOR
-# define PA "\033[38;5;1mpa\e[0m"
-# define PB "\033[38;5;27mpb\e[0m"
-// 
-# define SA "\033[38;5;178msa\e[0m"
-# define SB "\033[38;5;210msb\e[0m"
-# define SS "\033[38;5;202mss\e[0m"
-// 
-# define RA "\033[38;5;40mra\e[0m"
-# define RB "\033[38;5;64mrb\e[0m"
-# define RR "\033[38;5;58mrr\e[0m"
-// 
-# define RRA "\033[38;5;129mrra\e[0m"
-# define RRB "\033[38;5;141mrrb\e[0m"
-# define RRR "\033[38;5;153mrrr\e[0m"
+// # define PA "\033[38;5;1mpa\e[0m"
+// # define PB "\033[38;5;27mpb\e[0m"
+// // 
+// # define SA "\033[38;5;178msa\e[0m"
+// # define SB "\033[38;5;210msb\e[0m"
+// # define SS "\033[38;5;202mss\e[0m"
+// // 
+// # define RA "\033[38;5;40mra\e[0m"
+// # define RB "\033[38;5;64mrb\e[0m"
+// # define RR "\033[38;5;58mrr\e[0m"
+// // 
+// # define RRA "\033[38;5;129mrra\e[0m"
+// # define RRB "\033[38;5;141mrrb\e[0m"
+// # define RRR "\033[38;5;153mrrr\e[0m"
 
 // WITHOUT COLOR
-// # define PA "pa"
-// # define PB "pb"
-// // 
-// # define SA "sa"
-// # define SB "sb"
-// # define SS "ss"
-// // 
-// # define RA "ra"
-// # define RB "rb"
-// # define RR "rr"
-// // 
-// # define RRA "rra"
-// # define RRB "rrb"
-// # define RRR "rrr"
+# define PA "pa"
+# define PB "pb"
+// 
+# define SA "sa"
+# define SB "sb"
+# define SS "ss"
+// 
+# define RA "ra"
+# define RB "rb"
+# define RR "rr"
+// 
+# define RRA "rra"
+# define RRB "rrb"
+# define RRR "rrr"
 
 # define MSG_TOOBIG "\033[0;31merror\033[0;32m - yeah, about that.. \
 THAT wont fit, sorry.\n\e[0m"

@@ -58,9 +58,9 @@ void	visu(t_data *data)
 			error = reading_cmd(raw, data);
 		helper_73(data, raw, &error, &sw);
 		if (error == -1)
-			put("\n\033[38;5;94mtrying:" RESET " %s\n" MSG_BADCMD, raw);
+			printf("\n\033[38;5;94mtrying:" RESET " %s\n" MSG_BADCMD, raw);
 		free_s(raw);
-		usleep(200000);
+		usleep(50000);
 	}
 }
 
