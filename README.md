@@ -56,6 +56,12 @@ This project includes a small Makefile-based testing toolkit for your own `push_
 
 Simply copy-paste the entire Makefile_tester into your own `Makefile`.
 
+Or clone this entire project at the root of your own project, and:
+
+```bash
+cat kali_push_swap/Makefile_tester >> Makefile
+```
+
 ### Requirements
 
 ```bash
@@ -98,6 +104,8 @@ HOW_MANY_TIMES  # number of repeated tests
 
 ![push_swap](assets/screen1.jpg)
 
+---
+
 ### Usage
 
 `./visualiser` reads one or multiple operations from standard input:
@@ -122,11 +130,26 @@ Special control characters can also be used:
 - `Ctrl-D` : stop execution and check whether the stacks are correctly sorted
 
 
+---
+
+### VISUALISE YOUR OWN ALGORITHM
+### Installation & Setup
+
+```bash
+# clone this project at the root of your own:
+git clone https://github.com/kalips003/push_swap kali_visu
+
+# <!> if not already done:
+# Append the tester rules to your Makefile
+cat kali_visu/Makefile_tester >> Makefile
+
+# Build and run
+make see
+```
 
 ---
-# dont read this
-- the pushswap output has escape sequences for colors, it therefore doesnt pass it's own test on the visualiser. To make it work, uncomment the uncolored names in inc/defines.h
-- after cloning in < folder > use the command:
-cat < folder >/Makefile_tester >> Makefile
-make see
+---
+---
 
+### dont read this
+- the pushswap output has escape sequences for colors, it therefore doesnt pass it's own test on the visualiser. To make it work, uncomment the uncolored names in inc/defines.h
