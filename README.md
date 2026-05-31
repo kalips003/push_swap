@@ -120,3 +120,13 @@ Special control characters can also be used:
 - `.` : display the best control string for all numbers
 - `*` : toggle display between values and indexes
 - `Ctrl-D` : stop execution and check whether the stacks are correctly sorted
+
+
+
+---
+# dont read this
+- the pushswap output has escape sequences for colors, it therefore doesnt pass it's own test on the visualiser. To make it work, uncomment the uncolored names in inc/defines.h
+- after cloning in < folder > use the command:
+cat < folder >/Makefile_tester >> Makefile
+make see
+

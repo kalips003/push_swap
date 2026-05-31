@@ -46,12 +46,18 @@ c: libft $(NAME) inc/push_swap.h
 	echo $$ARGS; \
 	./$(word 2, $^) $$ARGS
 
-# MAKE C: call push swap with a random list of $HOW_MANY number between $MIN & $MAX
-d: libft visualiser
+# MAKE D: call visualiser with random numbers with the output of 'push_swap' 
+d: libft visualiser $(NAME)
 	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) number ね?, $(CLS), );
 	-@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
 	echo "ARGS: $$ARGS"; echo; \
 	./$(NAME) $$ARGS | ./$(VISU) $$ARGS
+
+# MAKE E: call push swap with a random numbers waiting for output
+e: libft visualiser $(NAME)
+	@$(call random_shmol_cat, "\'tis push shwap tesshter", $(HOW_MANY) number ね?, $(CLS), );
+	-@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
+	./$(VISU) $$ARGS
 
 # Call push swap $ARGS with VALGRIND
 v: libft $(NAME) inc/push_swap.h

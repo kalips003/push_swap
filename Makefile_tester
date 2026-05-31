@@ -83,6 +83,18 @@ n: $(NAMEE)
 
 
 #######################################################################################
+KALI := $(shell find * -maxdepth 1 -name '.git' -exec dirname {} \; | head -n 1)
+VISU = $(KALI)/visualiser
+
+see: $(VISU) $(NAMEE)
+	-@ARGS=$$(seq $(MIN) $(MAX) | shuf -n $(HOW_MANY) | tr '\n' ' ' | sed -r 's/ $$//'); \
+	./$(NAMEE) $$ARGS | ./$(VISU) $$ARGS
+
+
+$(VISU):
+	-@make -C $(KALI) visualiser
+
+#######################################################################################
 # --------------------------------------------------------------------------------- >
 # @$(call shmol_cat_color, $(c_c), $(c_t), txt1, txt2, $(CLS), $(RESET));
 # $(1)=COLOR1, $(2)=COLOR2; $(3)= text1; $(4)= text2; $(5)=$(CLEAR); $(6)=$(RESET)
